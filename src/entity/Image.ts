@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	ManyToMany,
+	JoinTable,
+	CreateDateColumn,
+	UpdateDateColumn
+} from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Image {
@@ -6,7 +16,7 @@ export class Image {
 	id: string;
 
 	@Column()
-	name: string;
+	title: string;
 
 	@Column()
 	resolution: string;
@@ -16,4 +26,20 @@ export class Image {
 
 	@Column()
 	favorites: number;
+
+	@Column()
+	tags: string[];
+
+	@ManyToOne((type) => User, (User) => User.images)
+	author: User;
+
+	@ManyToMany((type) => User, (User) => User.favorites)
+	@JoinTable()
+	favoriters: User;
+
+	@CreateDateColumn()
+	CreatedDate: Date;
+
+	@UpdateDateColumn()
+	UpdatedDate: Date;
 }

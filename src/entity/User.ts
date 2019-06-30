@@ -1,10 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	OneToMany,
+	ManyToMany,
+	CreateDateColumn,
+	UpdateDateColumn
+} from 'typeorm';
 import { Image } from './Image';
 
 @Entity()
 export class User {
-	@PrimaryGeneratedColumn()
-	id: number;
+	@PrimaryGeneratedColumn('uuid')
+	id: string;
 
 	@Column()
 	userName: string;
@@ -18,9 +26,15 @@ export class User {
 	@Column()
 	email: string;
 
-	@Column()
+	@ManyToMany((type) => Image, (Image) => Image.favoriters)
 	favorites: Image[];
 
-	@Column()
+	@OneToMany((type) => Image, (Image) => Image.author)
 	images: Image[];
+
+	@CreateDateColumn()
+	CreatedDate: Date;
+
+	@UpdateDateColumn()
+	UpdatedDate: Date;
 }

@@ -1,6 +1,7 @@
+import * as express from 'express';
+import { Request, Response } from 'express';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import { User } from './entity/User';
 
 createConnection()
 	.then(async (connection) => {})
