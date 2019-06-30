@@ -27,8 +27,8 @@ export class Image {
 	@Column()
 	favorites: number;
 
-	@Column()
-	tags: string[];
+	@Column({ array: true })
+	tags: string;
 
 	@ManyToOne((type) => User, (User) => User.images)
 	author: User;

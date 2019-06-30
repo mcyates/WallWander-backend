@@ -5,13 +5,13 @@ services:
     # build: ./postgres
     container_name: "pg-docker"
     restart: always
-    env_file: 
-      - ./config/dev.env
-    # environment:
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_HOST=localhost
-    #   - POSTGRES_PASSWORD=docker
-    #   - POSTGRES_DB=postgres
+    # env_file: 
+    #   - ./config/dev.env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
