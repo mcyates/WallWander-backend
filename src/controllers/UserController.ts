@@ -22,11 +22,10 @@ export const getUser = async function(req: Request, res: Response) {
 
 // register new user
 export const registerUser = async function(req: Request, res: Response) {
-	const { userName, email, password } = req.body;
+	const { email, password } = req.body;
 	const hash = await bcrypt.hash(password, 10);
 
 	const userInfo = {
-		userName,
 		email,
 		password
 	};
@@ -34,6 +33,15 @@ export const registerUser = async function(req: Request, res: Response) {
 	const user = await userRepository.create(userInfo);
 	const results = await userRepository.save(user);
 	return res.send(results);
+};
+// login
+export const loginUser = async (req: Request, res: Response) => {
+	const { email, password } = req.body;
+	const hash = await bcrypt.hash(password, 10);
+	const user = await userRepository.findOne({ email });
+	if (user) {
+		// finish login
+	}
 };
 
 //  update user
