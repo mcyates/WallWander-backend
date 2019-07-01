@@ -5,6 +5,7 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
 import * as userController from './controllers/userController';
+import * as imageController from './controllers/imageController';
 
 createConnection()
 	.then(async (connection) => {})
@@ -18,9 +19,16 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // primary routes
+// user routes
 app.get(`/users`, userController.getAllUsers);
 app.get(`/users/:id`, userController.getUser);
 app.post(`/users/register`, userController.registerUser);
 app.put(`/users/:id`, userController.updateUser);
 app.delete(`/users/:id`, userController.deleteUser);
+// image routes
+app.get(`/images`, imageController.getAllImages);
+app.get(`/images/:id`, imageController.getImage);
+app.post(`/images/upload`, imageController.uploadImage);
+app.delete(`/images/:id`, imageController.deleteImage);
+
 app.listen(3000);
