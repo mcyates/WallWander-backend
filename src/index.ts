@@ -4,6 +4,8 @@ import * as bodyParser from 'body-parser';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
+import * as userController from './controllers/userController';
+
 createConnection()
 	.then(async (connection) => {})
 	.catch((error) => console.log(error));
@@ -15,6 +17,10 @@ app.get('/', (req: Request, res: Response) => {
 	return res.status(200).json('hello');
 });
 
-export const router = express.Router();
-
+// primary routes
+app.get(`/users`, userController.getAllUsers);
+app.get(`/users/:id`, userController.getUser);
+app.post(`/users/register`, userController.registerUser);
+app.put(`/users/:id`, userController.updateUser);
+app.delete(`/users/:id`, userController.deleteUser);
 app.listen(3000);
