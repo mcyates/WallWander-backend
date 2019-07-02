@@ -1,17 +1,35 @@
-import * as express from 'express';
-import { Request, Response } from 'express';
-import * as bodyParser from 'body-parser';
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import pg from 'pg';
+import knex from 'knex';
 
 import * as userController from './controllers/userController';
 import * as imageController from './controllers/imageController';
 
-createConnection()
-	.then(async (connection) => {})
-	.catch((error) => console.log(error));
+export const db = knex({
+	client: 'pg',
+	connection: {
+		host: process.env.POSTGRES_HOST,
+		user: process.env.POSTGRES_USER,
+		password: process.env.POSTGRES_PASSWORD,
+		database: process.env.POSTGRES_DB
+	}
+});
+
+db.schema.createTable('users', (table) => {
+	table.uuid('id').primary();
+	table
+		.string('email')
+		.unique()
+		.notNullable();
+	table.string('password').notNullable();
+	table.timestamp('created_At').defaultTo(db.fn.now());
+});
 
 const app = express();
+
+app.use(cors);
 app.use(bodyParser.json());
 
 app.get('/', (req: Request, res: Response) => {

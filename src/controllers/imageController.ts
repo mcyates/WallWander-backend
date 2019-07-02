@@ -1,11 +1,10 @@
 import formidable from 'formidable';
 import { Request, Response } from 'express';
-import { getConnection } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 import { Image } from '../entity/Image';
 
-const connection = getConnection();
-const imageRepository = connection.getRepository(Image);
+const imageRepository = getRepository(Image);
 
 // get all images
 export const getAllImages = async (req: Request, res: Response) => {

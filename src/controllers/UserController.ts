@@ -1,22 +1,19 @@
 import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
-import { getConnection } from 'typeorm';
 
+import { db } from '../index';
 import { User } from '../entity/User';
 
-const connection = getConnection();
-const userRepository = connection.getRepository(User);
-
 // get all users
-
 export const getAllUsers = async (req: Request, res: Response) => {
-	const users = await userRepository.find();
+	const users = await getManager().find(User);
 	return res.json(users);
 };
 
 // get one user by id
 export const getUser = async function(req: Request, res: Response) {
-	const results = await userRepository.findOne(req.params.id);
+	const { id } = req.params;
+	db.select('*').from('users');
 	return res.send(results);
 };
 
