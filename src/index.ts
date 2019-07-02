@@ -18,13 +18,28 @@ export const db = knex({
 });
 
 db.schema.createTable('users', (table) => {
-	table.uuid('id').primary();
+	table
+		.uuid('id')
+		.primary()
+		.unique();
 	table
 		.string('email')
 		.unique()
 		.notNullable();
 	table.string('password').notNullable();
-	table.timestamp('created_At').defaultTo(db.fn.now());
+	table.timestamp('createdAt').defaultTo(db.fn.now());
+});
+
+db.schema.createTable('images', (table) => {
+	table
+		.uuid('id')
+		.primary()
+		.unique();
+	table.string('title');
+	table.string('resolution');
+	table.bigInteger('views');
+	table.timestamp('createdAt').defaultTo(db.fn.now());
+	table.uuid('authorId').references('users.id');
 });
 
 const app = express();

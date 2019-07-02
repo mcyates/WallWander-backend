@@ -1,34 +1,34 @@
-import {
-	Entity,
-	PrimaryGeneratedColumn,
-	Column,
-	OneToMany,
-	ManyToMany,
-	CreateDateColumn,
-	UpdateDateColumn
-} from 'typeorm';
-import { Image } from './Image';
+// import {
+// 	Entity,
+// 	PrimaryGeneratedColumn,
+// 	Column,
+// 	OneToMany,
+// 	ManyToMany,
+// 	CreateDateColumn,
+// 	UpdateDateColumn
+// } from 'typeorm';
+// import { Image } from './Image';
 
-@Entity()
-export class User {
-	@PrimaryGeneratedColumn('uuid')
-	id: string;
+// @Entity()
+// export class User {
+// 	@PrimaryGeneratedColumn('uuid')
+// 	id: string;
 
-	@Column()
-	password: string;
+// 	@Column()
+// 	password: string;
 
-	@Column()
-	email: string;
+// 	@Column()
+// 	email: string;
 
-	@ManyToMany((type) => Image, (Image) => Image.favoriters)
-	favorites: Image[];
+// 	@ManyToMany((type) => Image, (Image) => Image.favoriters)
+// 	favorites: Image[];
 
-	@OneToMany((type) => Image, (Image) => Image.author)
-	images: Image[];
+// 	@OneToMany((type) => Image, (Image) => Image.author)
+// 	images: Image[];
 
-	@CreateDateColumn()
-	CreatedDate: Date;
+// 	@CreateDateColumn()
+// 	CreatedDate: Date;
 
-	@UpdateDateColumn()
-	UpdatedDate: Date;
-}
+// 	@UpdateDateColumn()
+// 	UpdatedDate: Date;
+// }
