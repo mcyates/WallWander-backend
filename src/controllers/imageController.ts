@@ -1,17 +1,21 @@
 import formidable from 'formidable';
 import { Request, Response } from 'express';
 
-// import { Image } from '../entity/Image';
+import { db } from '../index';
 
 // get all images
 export const getAllImages = async (req: Request, res: Response) => {
-	// const images = await imageRepository.find();
-	return res.json('images');
+	const images = await db.select('*').from('images');
+	return res.json(images);
 };
 
 export const getImage = async (req: Request, res: Response) => {
-	// const results = await imageRepository.findOne(req.params.id);
-	return res.send('');
+	const { id } = req.params;
+	const image = await db
+		.select('id')
+		.from('images')
+		.where({ id });
+	return res.send(image);
 };
 
 export const uploadImage = async (req: Request, res: Response) => {
@@ -30,5 +34,10 @@ export const uploadImage = async (req: Request, res: Response) => {
 
 export const deleteImage = async (req: Request, res: Response) => {
 	// const results = await imageRepository.remove(req.params.id);
-	return res.send('a');
+	const { id } = req.params;
+	const image = await db('images')
+		.where({ id })
+		.del();
+
+	return res.send(image);
 };

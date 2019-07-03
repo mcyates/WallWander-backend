@@ -51,7 +51,7 @@ const app = express();
 app.use(cors());
 app.use(
 	cookieSession({
-		keys: [process.env.SECRET]
+		secret: process.env.SECRET
 	})
 );
 app.use(helmet());
@@ -66,6 +66,7 @@ app.get('/', (req: Request, res: Response) => {
 app.get(`/users`, userController.getAllUsers);
 app.get(`/users/:id`, requireAuth, userController.getUser);
 app.post(`/users/register`, userController.registerUser);
+app.post(`/users/login`, userController.loginUser);
 app.put(`/users/:id`, requireAuth, userController.updateUser);
 app.delete(`/users/:id`, requireAuth, userController.deleteUser);
 // image routes
