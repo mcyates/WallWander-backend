@@ -6,6 +6,7 @@ import knex from 'knex';
 
 import * as userController from './controllers/userController';
 import * as imageController from './controllers/imageController';
+import helmet = require('helmet');
 
 export const db = knex({
 	client: 'pg',
@@ -44,7 +45,8 @@ db.schema.createTable('images', (table) => {
 
 const app = express();
 
-app.use(cors);
+app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 
 app.get('/', (req: Request, res: Response) => {
