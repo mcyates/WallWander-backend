@@ -1,3 +1,4 @@
+import cookieSession from 'cookie-session';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -7,6 +8,7 @@ import knex from 'knex';
 import * as userController from './controllers/userController';
 import * as imageController from './controllers/imageController';
 import helmet = require('helmet');
+import { requireAuth } from './middleware/auth';
 
 export const db = knex({
 	client: 'pg',
@@ -27,6 +29,7 @@ db.schema.createTable('users', (table) => {
 		.string('email')
 		.unique()
 		.notNullable();
+	table.string('name').notNullable();
 	table.string('password').notNullable();
 	table.timestamp('createdAt').defaultTo(db.fn.now());
 });
@@ -46,6 +49,11 @@ db.schema.createTable('images', (table) => {
 const app = express();
 
 app.use(cors());
+app.use(
+	cookieSession({
+		keys: [process.env.SECRET]
+	})
+);
 app.use(helmet());
 app.use(bodyParser.json());
 
@@ -56,14 +64,14 @@ app.get('/', (req: Request, res: Response) => {
 // primary routes
 // user routes
 app.get(`/users`, userController.getAllUsers);
-app.get(`/users/:id`, userController.getUser);
+app.get(`/users/:id`, requireAuth, userController.getUser);
 app.post(`/users/register`, userController.registerUser);
-app.put(`/users/:id`, userController.updateUser);
-app.delete(`/users/:id`, userController.deleteUser);
+app.put(`/users/:id`, requireAuth, userController.updateUser);
+app.delete(`/users/:id`, requireAuth, userController.deleteUser);
 // image routes
 app.get(`/images`, imageController.getAllImages);
 app.get(`/images/:id`, imageController.getImage);
-app.post(`/images/upload`, imageController.uploadImage);
-app.delete(`/images/:id`, imageController.deleteImage);
+app.post(`/images/upload`, requireAuth, imageController.uploadImage);
+app.delete(`/images/:id`, requireAuth, imageController.deleteImage);
 
 app.listen(3000);

@@ -2,42 +2,61 @@ import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 
 import { db } from '../index';
-// import { User } from '../entity/User';
 
 // get all users
 export const getAllUsers = async (req: Request, res: Response) => {
-	// const users = await getManager().find(User);
+	const users = await db.select('*').from('users');
 	return res.json('users');
 };
 
 // get one user by id
 export const getUser = async function(req: Request, res: Response) {
 	const { id } = req.params;
-	// db.select('*').from('users');
+	const user = await db
+		.select('id')
+		.from('users')
+		.where({ id });
 	return res.send('users');
 };
 
 // register new user
 export const registerUser = async function(req: Request, res: Response) {
-	const { email, password } = req.body;
+	const { email, name, password } = req.body;
 	const hash = await bcrypt.hash(password, 10);
 
-	const userInfo = {
-		email,
-		password
-	};
-
-	// const user = await userRepository.create(userInfo);
-	// const results = await userRepository.save(user);
-	return res.send('res');
+	db.transaction((trx) => {
+		trx
+			.insert({
+				hash,
+				name,
+				email
+			})
+			.into('users')
+			.returning('id')
+			.then((user) => {
+				res.json(user[0]);
+			})
+			.then(trx.commit)
+			.catch(trx.rollback);
+	});
 };
 // login
 export const loginUser = async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 	const hash = await bcrypt.hash(password, 10);
-	const user = '';
-	if (user) {
+	const isValid = await bcrypt.compare(password, hash);
+	if (isValid) {
+		return db
+			.select('*')
+			.from('users')
+			.where('email', '=', email)
+			.then((user) => {
+				res.json(user[0]);
+			})
+			.catch((e) => res.status(400).json('User not found'));
 		// finish login
+	} else {
+		res.status(400).json('Invalid credentials');
 	}
 };
 

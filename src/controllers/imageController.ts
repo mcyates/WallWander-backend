@@ -1,8 +1,7 @@
 import formidable from 'formidable';
 import { Request, Response } from 'express';
 
-import { Image } from '../entity/Image';
-
+// import { Image } from '../entity/Image';
 
 // get all images
 export const getAllImages = async (req: Request, res: Response) => {
@@ -20,11 +19,11 @@ export const uploadImage = async (req: Request, res: Response) => {
 
 	form.parse(req);
 
-	form.on('fileBegin', (name: any, file: { path: string; name: any; }) => {
+	form.on('fileBegin', (name: any, file: { path: string; name: any }) => {
 		file.path = `${__dirname}/uploads/${file.name}`;
 	});
 
-	form.on('file', (name: any, file: { name: any; }) => {
+	form.on('file', (name: any, file: { name: any }) => {
 		console.log(`Uploaded ${file.name}`);
 	});
 };
