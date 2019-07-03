@@ -6,7 +6,7 @@
 	"scripts": {
 		"docker:up": "docker-compose up -d",
 		"docker:down": "docker-compose down",
-		"start": "env-cmd -f ./config/dev.env ts-node src/index.ts"
+		"start": "ts-node src/index.ts"
 	},
 	"repository": {
 		"type": "git",

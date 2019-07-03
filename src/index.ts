@@ -13,45 +13,21 @@ import { requireAuth } from './middleware/auth';
 export const db = knex({
 	client: 'pg',
 	connection: {
-		host: process.env.POSTGRES_HOST,
-		user: process.env.POSTGRES_USER,
-		password: process.env.POSTGRES_PASSWORD,
-		database: process.env.POSTGRES_DB
+		host: 'localhost',
+		user: 'postgres',
+		password: 'docker',
+		database: 'postgres'
 	}
-});
-
-db.schema.createTable('users', (table) => {
-	table
-		.uuid('id')
-		.primary()
-		.unique();
-	table
-		.string('email')
-		.unique()
-		.notNullable();
-	table.string('name').notNullable();
-	table.string('password').notNullable();
-	table.timestamp('createdAt').defaultTo(db.fn.now());
-});
-
-db.schema.createTable('images', (table) => {
-	table
-		.uuid('id')
-		.primary()
-		.unique();
-	table.string('title');
-	table.string('resolution');
-	table.bigInteger('views');
-	table.timestamp('createdAt').defaultTo(db.fn.now());
-	table.uuid('authorId').references('users.id');
 });
 
 const app = express();
 
 app.use(cors());
+
 app.use(
 	cookieSession({
-		secret: process.env.SECRET
+		// keys: ['authtastic']
+		secret: 'authtastic'
 	})
 );
 app.use(helmet());
