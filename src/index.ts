@@ -1,32 +1,26 @@
 import cookieSession from 'cookie-session';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import helmet = require('helmet');
 import cors from 'cors';
-import pg from 'pg';
-import knex from 'knex';
 
 import * as userController from './controllers/userController';
 import * as imageController from './controllers/imageController';
-import helmet = require('helmet');
 import { requireAuth } from './middleware/auth';
+import { initDb } from './database/database';
 
-export const db = knex({
-	client: 'pg',
-	connection: {
-		host: 'localhost',
-		user: 'postgres',
-		password: 'docker',
-		database: 'postgres'
-	}
-});
+initDb();
 
 const app = express();
+
+const port = process.env.PORT;
+console.log(process.env.PORT);
 
 app.use(cors());
 
 app.use(
 	cookieSession({
-		secret: 'authtastic'
+		secret: `${process.env.SECRET}`
 	})
 );
 app.use(helmet());
@@ -42,7 +36,7 @@ app.get(`/users`, userController.getAllUsers);
 app.get(`/users/:id`, requireAuth, userController.getUser);
 app.post(`/users/register`, userController.registerUser);
 app.post(`/users/login`, userController.loginUser);
-app.put(`/users/logout`, userController);
+app.get(`/users/logout`, userController.logoutUser);
 app.delete(`/users/:id`, requireAuth, userController.deleteUser);
 // image routes
 app.get(`/images`, imageController.getAllImages);
@@ -50,4 +44,6 @@ app.get(`/images/:id`, imageController.getImage);
 app.post(`/images/upload`, requireAuth, imageController.uploadImage);
 app.delete(`/images/:id`, requireAuth, imageController.deleteImage);
 
-app.listen(3000);
+app.listen(port, () => {
+	console.log(`server running at port ${port}`);
+});

@@ -1,7 +1,8 @@
 import formidable from 'formidable';
 import { Request, Response } from 'express';
+import uuid from 'uuid';
 
-import { db } from '../index';
+import { db } from '../database/database';
 
 // get all images
 export const getAllImages = async (req: Request, res: Response) => {
@@ -19,6 +20,7 @@ export const getImage = async (req: Request, res: Response) => {
 };
 
 export const uploadImage = async (req: Request, res: Response) => {
+	const id = await uuid.v4();
 	const form = new formidable.IncomingForm();
 
 	form.parse(req);

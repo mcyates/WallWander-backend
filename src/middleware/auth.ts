@@ -1,7 +1,7 @@
 import express, { NextFunction } from 'express';
 
 export const requireAuth = (req: any, res: any, next: NextFunction) => {
-	if (req.session && req.session.loggedIn) {
+	if (req.session && req.session.id) {
 		next();
 		return;
 	}
