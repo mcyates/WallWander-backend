@@ -33,8 +33,8 @@ export const uploadImage = async (req: Request, res: Response) => {
 };
 
 export const deleteImage = async (req: Request, res: Response) => {
-	// const results = await imageRepository.remove(req.params.id);
 	const { id } = req.params;
+
 	const image = await db('images')
 		.where({ id })
 		.del();

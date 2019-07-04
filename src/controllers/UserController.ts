@@ -6,7 +6,7 @@ import { db } from '../index';
 // get all users
 export const getAllUsers = async (req: Request, res: Response) => {
 	const users = await db.select('*').from('users');
-	return res.json('users');
+	return res.json(users);
 };
 
 // get one user by id
@@ -34,6 +34,7 @@ export const registerUser = async function(req: Request, res: Response) {
 			.into('users')
 			.returning('id')
 			.then((user) => {
+				req.session = { userId: user[0] };
 				res.json(user[0]);
 			})
 			.then(trx.commit)
@@ -51,6 +52,7 @@ export const loginUser = async (req: Request, res: Response) => {
 			.from('users')
 			.where('email', '=', email)
 			.then((user) => {
+				req.session = { userId: user[0] };
 				res.json(user[0]);
 			})
 			.catch((e) => res.status(400).json('User not found'));
@@ -61,15 +63,18 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 //  update user
-export const updateUser = async function(req: Request, res: Response) {
-	// const user = await userRepository.findOne(req.params.id);
-	// await userRepository.merge(user, req.body);
-	// const results = await userRepository.save(user);
-	return res.send('res');
+export const logoutUser = async function(req: Request, res: Response) {
+	req.session = undefined;
+	return res.json('Succesfully logged out');
 };
 
 // delete user
 export const deleteUser = async function(req: Request, res: Response) {
-	// const results = await userRepository.remove(req.params.id);
+	const { id } = req.params;
+
+	const user = await db('users')
+		.where({ id })
+		.del();
+
 	return res.send('res');
 };
