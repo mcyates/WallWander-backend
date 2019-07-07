@@ -21,6 +21,8 @@ export const getImage = async (req: Request, res: Response) => {
 
 export const uploadImage = async (req: Request, res: Response) => {
 	const id = await uuid.v4();
+	// console.log(req);
+	// console.log(1);
 	const form = new formidable.IncomingForm();
 
 	form.parse(req);
