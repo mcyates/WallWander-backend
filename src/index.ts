@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import helmet = require('helmet');
 import cors from 'cors';
+import cookieSession from 'cookie-session';
 
 import userRouter from './controllers/userController';
 import imageRouter from './controllers/imageController';
@@ -12,7 +13,17 @@ initDb();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(
+	cors({
+		exposedHeaders: ['x-auth']
+	})
+);
+app.use(
+	cookieSession({
+		name: 'session',
+		secret: 'secretasdq12'
+	})
+);
 app.use(bodyParser.json());
 app.use(userRouter);
 app.use(imageRouter);

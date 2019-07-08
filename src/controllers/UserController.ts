@@ -59,7 +59,8 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 			.into('users')
 			.returning('id')
 			.then((user) => {
-				req.session = { id: user[0] };
+				const { id } = user[0];
+				req.session = { id };
 				res.json(user[0]);
 			})
 			.then(trx.commit)
@@ -80,7 +81,8 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 			.from('users')
 			.where('email', '=', email)
 			.then((user) => {
-				req.session = { id: user[0] };
+				const { id } = user[0];
+				req.session = { id };
 				res.json(user[0].id);
 			})
 			.catch((e) => res.status(400).json('User not found'));
