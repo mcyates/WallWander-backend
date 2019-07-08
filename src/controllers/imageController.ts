@@ -1,30 +1,44 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
+import multer from 'multer';
 import uuid from 'uuid';
 
 import { db } from '../database/database';
 
+const upload = multer({
+	dest: './uploads'
+});
+
+export const router = express.Router();
+
 // get all images
-export const getAllImages = async (req: Request, res: Response) => {
+router.get(`/images`, async (req: Request, res: Response) => {
 	const images = await db.select('*').from('images');
 	return res.json(images);
-};
+});
 
-export const getImage = async (req: Request, res: Response) => {
+// get image by id
+router.get(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const image = await db
 		.select('id')
 		.from('images')
 		.where({ id });
 	return res.send(image);
-};
+});
 
-export const uploadImage = async (req: any, res: Response) => {
-	const id = await uuid.v4();
-	console.log(req.file);
-	res.json(req.file).status(201);
-};
+// upload new image
+router.post(
+	`/images/upload`,
+	upload.single('upload'),
+	async (req: any, res: Response) => {
+		const id = await uuid.v4();
+		console.log(req.file);
+		res.json(req.file).status(201);
+	}
+);
 
-export const deleteImage = async (req: Request, res: Response) => {
+// delete image by id
+router.delete(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	const image = await db('images')
@@ -32,4 +46,6 @@ export const deleteImage = async (req: Request, res: Response) => {
 		.del();
 
 	return res.send(image);
-};
+});
+
+export default router;
