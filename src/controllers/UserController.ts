@@ -6,7 +6,18 @@ import uuid from 'uuid';
 import { db } from '../database/database';
 
 const upload = multer({
-	dest: './avatars'
+	dest: './uploads/avatars',
+	limits: {
+		fileSize: 2000000
+	},
+	fileFilter(req, file, cb) {
+		const isImage = /([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png|webP)/g;
+		if (isImage.test(file.originalname.toLowerCase()) === false) {
+			return cb(new Error('file must be a image'), false);
+		}
+
+		cb(null, true);
+	}
 });
 
 const router: Router = express.Router();

@@ -5,7 +5,18 @@ import uuid from 'uuid';
 import { db } from '../database/database';
 
 const upload = multer({
-	dest: './uploads'
+	dest: './uploads/wallpapers',
+	limits: {
+		fileSize: 10000000
+	},
+	fileFilter(req, file, cb) {
+		const isImage = /([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png|webP)/g;
+		if (isImage.test(file.originalname.toLowerCase()) === false) {
+			return cb(new Error('file must be a image'), false);
+		}
+
+		cb(null, true);
+	}
 });
 
 export const router = express.Router();
@@ -33,6 +44,7 @@ router.post(
 	async (req: any, res: Response) => {
 		const id = await uuid.v4();
 		console.log(req.file);
+
 		res.json(req.file).status(201);
 	}
 );

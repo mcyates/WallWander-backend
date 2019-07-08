@@ -182,11 +182,11 @@
         "signature": "1c99a4e95a078097e754f54c4c8d8ef3308e10b5878568edc10ed4fe5f9b5a95"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts": {
-        "version": "62ad44cc998005b561d4987dc66f9e8f3abe8d37b455cc46b5f6343ee9dd58bf",
+        "version": "22858a9525bf2bb3da0ed3f1e8d3d6d6fcdd36a62e302e6c0491fbc46221b0ff",
         "signature": "324f34044e579046d1477a38093109dfdad2e671fc14456bbd0a575478ddc84c"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts": {
-        "version": "426bcd265e9368a9e86bbbf9b985aa032b869bb67d517202d4165b625403220d",
+        "version": "903087eab0b479b20880fdf982e071bd55618abda7e7708f55bea41616471ec8",
         "signature": "60b502af5c6fa7b2adec9a18b7d27bf8d5cf51b0f487ccaf3898dfbc05a90ece"
       },
       "c:/webstuff/typescript/wallwander/backend/src/index.ts": {
@@ -946,8 +946,8 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/pg-types/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/pg/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/src/database/database.ts",
-      "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts",
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts",
+      "c:/webstuff/typescript/wallwander/backend/src/index.ts",
       "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@babel/types/lib/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/babel__generator/index.d.ts",
@@ -967,7 +967,7 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/jsonwebtoken/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/stack-utils/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/yargs/index.d.ts",
-      "c:/webstuff/typescript/wallwander/backend/src/index.ts"
+      "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts"
     ]
   },
   "version": "3.5.1"
