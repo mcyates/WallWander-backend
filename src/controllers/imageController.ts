@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
 
@@ -10,7 +10,7 @@ const upload = multer({
 		fileSize: 10000000
 	},
 	fileFilter(req, file, cb) {
-		const isImage = /([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png|webP)/g;
+		const isImage = /\.(?:jpg|jpeg|gif|png|webP)/g;
 		if (isImage.test(file.originalname.toLowerCase()) === false) {
 			return cb(new Error('file must be a image'), false);
 		}
@@ -46,6 +46,9 @@ router.post(
 		console.log(req.file);
 
 		res.json(req.file).status(201);
+	},
+	(error: Error, req: Request, res: Response, next: NextFunction) => {
+		res.status(400).json({ error: error.message });
 	}
 );
 

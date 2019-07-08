@@ -182,11 +182,11 @@
         "signature": "1c99a4e95a078097e754f54c4c8d8ef3308e10b5878568edc10ed4fe5f9b5a95"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts": {
-        "version": "22858a9525bf2bb3da0ed3f1e8d3d6d6fcdd36a62e302e6c0491fbc46221b0ff",
+        "version": "cd960037e77a73cce104fc6e77e3a158b3a97742ee39541fa1f695c939570b10",
         "signature": "324f34044e579046d1477a38093109dfdad2e671fc14456bbd0a575478ddc84c"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts": {
-        "version": "903087eab0b479b20880fdf982e071bd55618abda7e7708f55bea41616471ec8",
+        "version": "bd19bd8c1d29037df9302f572164641734baa24ee07cc2f5adc756524731bb3d",
         "signature": "60b502af5c6fa7b2adec9a18b7d27bf8d5cf51b0f487ccaf3898dfbc05a90ece"
       },
       "c:/webstuff/typescript/wallwander/backend/src/index.ts": {
