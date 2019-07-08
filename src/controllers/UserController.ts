@@ -11,7 +11,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 // get one user by id
-export const getUser = async function(req: Request, res: Response) {
+export const getUser = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const user = await db
 		.select('id')
@@ -21,7 +21,7 @@ export const getUser = async function(req: Request, res: Response) {
 };
 
 // register new user
-export const registerUser = async function(req: Request, res: Response) {
+export const registerUser = async (req: Request, res: Response) => {
 	console.log(req.body);
 	const { email, userName, password } = req.body;
 	const name = userName;
@@ -72,7 +72,7 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 //  update user
-export const logoutUser = async function(req: Request, res: Response) {
+export const logoutUser = async (req: Request, res: Response) => {
 	if (req.session) {
 		req.session = undefined;
 		return res.json('Succesfully logged out');
@@ -81,7 +81,7 @@ export const logoutUser = async function(req: Request, res: Response) {
 };
 
 // delete user
-export const deleteUser = async function(req: Request, res: Response) {
+export const deleteUser = async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	const user = await db('users')
@@ -89,4 +89,8 @@ export const deleteUser = async function(req: Request, res: Response) {
 		.del();
 
 	return res.send('res');
+};
+
+export const uploadAvatar = async (req: Request, res: Response) => {
+	res.json(req.file).status(201);
 };

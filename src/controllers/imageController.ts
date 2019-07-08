@@ -20,8 +20,8 @@ export const getImage = async (req: Request, res: Response) => {
 
 export const uploadImage = async (req: any, res: Response) => {
 	const id = await uuid.v4();
-
-	res.json(req.file);
+	console.log(req.file);
+	res.json(req.file).status(201);
 };
 
 export const deleteImage = async (req: Request, res: Response) => {

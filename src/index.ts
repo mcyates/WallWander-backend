@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 const upload = multer({
-	dest: './wallpapers'
+	dest: './uploads'
 });
 
 app.use(bodyParser.json());
@@ -31,13 +31,18 @@ app.get('/', (req: Request, res: Response) => {
 app.get(`/users`, userController.getAllUsers);
 app.get(`/users/:id`, userController.getUser);
 app.post(`/users/register`, userController.registerUser);
+app.post(`/users/avatar`, upload.single('upload'), userController.uploadAvatar);
 app.post(`/users/login`, userController.loginUser);
 app.get(`/users/logout`, userController.logoutUser);
 app.delete(`/users/:id`, userController.deleteUser);
 // image routes
 app.get(`/images`, imageController.getAllImages);
-app.get(`/images/:id`, upload.single('upload'), imageController.getImage);
-app.post(`/images/upload`, imageController.uploadImage);
+app.get(`/images/:id`, imageController.getImage);
+app.post(
+	`/images/upload`,
+	upload.single('upload'),
+	imageController.uploadImage
+);
 app.delete(`/images/:id`, imageController.deleteImage);
 
 app.listen(port, () => {

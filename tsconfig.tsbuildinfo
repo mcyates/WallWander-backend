@@ -182,15 +182,15 @@
         "signature": "1c99a4e95a078097e754f54c4c8d8ef3308e10b5878568edc10ed4fe5f9b5a95"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts": {
-        "version": "5193a502f9c0e67bda76f5d6afa20c9c0bfc13fd49e336d2c2edcb150b35cd35",
-        "signature": "30bf2097dc24909c83f031f30944f20156b893dcc6d647630b236f40bfa47c95"
+        "version": "52991bb380c2aab2376514a6052e9b72e8645cf41d3ec939b000d1dbd2973c6c",
+        "signature": "1f32f49eb0f7fb435515a0679ded0545e411dfbc7e6a4ac22898a86efffbedd4"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts": {
-        "version": "bb8e4ccbb61a5c4d07996d8f52b303bba43cbb641fd98aab367de01ca437f0de",
+        "version": "2371f128357cf6bab4501d08d19c02cef449bf02f1f608ddf5809f49e1b6035f",
         "signature": "cf425faa9d576110265fc4a1853ed476948cf8eedc8aa8e0717ec4ae1fca1715"
       },
       "c:/webstuff/typescript/wallwander/backend/src/index.ts": {
-        "version": "84dffbecb7f5bb0305b451a2a8a48b44babeaccfd412a9d508472902e013ac3a",
+        "version": "5251f26b1bdf8f542ba8223e7e35fec8b2b230267fc679e6484b863f3dbae4b8",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts": {
@@ -947,8 +947,8 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/pg-types/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/pg/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/src/database/database.ts",
-      "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts",
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts",
+      "c:/webstuff/typescript/wallwander/backend/src/index.ts",
       "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@babel/types/lib/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/babel__generator/index.d.ts",
@@ -968,7 +968,7 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/jsonwebtoken/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/stack-utils/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/yargs/index.d.ts",
-      "c:/webstuff/typescript/wallwander/backend/src/index.ts"
+      "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts"
     ]
   },
   "version": "3.5.1"
