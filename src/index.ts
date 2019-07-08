@@ -1,8 +1,8 @@
-import cookieSession from 'cookie-session';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import helmet = require('helmet');
 import cors from 'cors';
+import multer from 'multer';
 
 import * as userController from './controllers/userController';
 import * as imageController from './controllers/imageController';
@@ -11,19 +11,16 @@ import { initDb } from './database/database';
 initDb();
 
 const app = express();
+const port = process.env.PORT || 4000;
 
-const port = process.env.PORT;
-console.log(process.env.PORT);
+const upload = multer({
+	dest: './wallpapers'
+});
 
+app.use(bodyParser.json());
 app.use(cors());
 
-app.use(
-	cookieSession({
-		secret: `${process.env.SECRET}`
-	})
-);
 app.use(helmet());
-app.use(bodyParser.json());
 
 app.get('/', (req: Request, res: Response) => {
 	return res.status(200).json('hello');
@@ -39,7 +36,7 @@ app.get(`/users/logout`, userController.logoutUser);
 app.delete(`/users/:id`, userController.deleteUser);
 // image routes
 app.get(`/images`, imageController.getAllImages);
-app.get(`/images/:id`, imageController.getImage);
+app.get(`/images/:id`, upload.single('upload'), imageController.getImage);
 app.post(`/images/upload`, imageController.uploadImage);
 app.delete(`/images/:id`, imageController.deleteImage);
 

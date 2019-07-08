@@ -42,6 +42,7 @@ export const initDb = () => {
 						.uuid('id')
 						.primary()
 						.unique();
+					table.string('url');
 					table.string('title');
 					table.string('resolution');
 					table.bigInteger('views');

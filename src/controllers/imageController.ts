@@ -1,4 +1,3 @@
-import formidable from 'formidable';
 import { Request, Response } from 'express';
 import uuid from 'uuid';
 
@@ -19,21 +18,10 @@ export const getImage = async (req: Request, res: Response) => {
 	return res.send(image);
 };
 
-export const uploadImage = async (req: Request, res: Response) => {
+export const uploadImage = async (req: any, res: Response) => {
 	const id = await uuid.v4();
-	// console.log(req);
-	// console.log(1);
-	const form = new formidable.IncomingForm();
 
-	form.parse(req);
-
-	form.on('fileBegin', (name: any, file: { path: string; name: any }) => {
-		file.path = `${__dirname}/uploads/${file.name}`;
-	});
-
-	form.on('file', (name: any, file: { name: any }) => {
-		console.log(`Uploaded ${file.name}`);
-	});
+	res.json(req.file);
 };
 
 export const deleteImage = async (req: Request, res: Response) => {
