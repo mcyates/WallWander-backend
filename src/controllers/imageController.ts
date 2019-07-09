@@ -1,3 +1,4 @@
+import { Authenticate } from './../middleware/auth';
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
@@ -40,6 +41,7 @@ router.get(`/images/:id`, async (req: Request, res: Response) => {
 // upload new image
 router.post(
 	`/images/upload`,
+	Authenticate,
 	upload.single('upload'),
 	async (req: any, res: Response) => {
 		const id = await uuid.v4();

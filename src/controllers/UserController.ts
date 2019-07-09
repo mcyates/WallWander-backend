@@ -1,4 +1,6 @@
+import { Authenticate } from './../middleware/auth';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import express, { Request, Response, Router, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
@@ -20,11 +22,13 @@ const upload = multer({
 	}
 });
 
+const generateToken = (email: string) => {};
+
 const router: Router = express.Router();
 
 // get all users
-router.get(`/users`, async (req: Request, res: Response) => {
-	const users = await db.select('*').from('users');
+router.get(`/users`, Authenticate, async (req: Request, res: Response) => {
+	const users = await db.select('id').from('users');
 	return res.json(users);
 });
 
@@ -40,7 +44,6 @@ router.get(`/users/:id`, async (req: Request, res: Response) => {
 
 // register user
 router.post(`/users/register`, async (req: Request, res: Response) => {
-	console.log(req.body);
 	const { email, userName, password } = req.body;
 	const name = userName;
 
@@ -93,29 +96,38 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 });
 
 // logout user
-router.get(`/users/logout`, async (req: Request, res: Response) => {
-	if (req.session) {
-		req.session = undefined;
-		return res.json('Succesfully logged out');
+router.get(
+	`/users/logout`,
+	Authenticate,
+	async (req: Request, res: Response) => {
+		if (req.session) {
+			req.session = undefined;
+			return res.json('Succesfully logged out');
+		}
+		res.json('already logged out');
 	}
-	res.json('already logged out');
-});
+);
 
 // delete user
-router.delete(`/users/:id`, async (req: Request, res: Response) => {
-	const { id } = req.params;
+router.delete(
+	`/users/:id`,
+	Authenticate,
+	async (req: Request, res: Response) => {
+		const { id } = req.params;
 
-	const user = await db('users')
-		.where({ id })
-		.del();
+		const user = await db('users')
+			.where({ id })
+			.del();
 
-	return res.send('res');
-});
+		return res.send('res');
+	}
+);
 
 // upload user avatar
 router.post(
 	`/users/avatar`,
 	upload.single('upload'),
+	Authenticate,
 	async (req: Request, res: Response) => {
 		res.json(req.file).status(201);
 	},
