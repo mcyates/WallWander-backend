@@ -8,6 +8,7 @@ export const generateToken = async (id: string) => {
 };
 
 export const findByToken = async (token: string) => {
+	console.log(token);
 	if (token) {
 		const tokenArr = token.split(' ');
 		const payload = tokenArr[1];

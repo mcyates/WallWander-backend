@@ -109,7 +109,7 @@ router.delete(
 	Authenticate,
 	async (req: Request, res: Response) => {
 		const { Authorization } = req.headers;
-		const authId = findByToken;
+		const authId = findByToken(`${Authorization}`);
 
 		const { id } = req.params;
 
