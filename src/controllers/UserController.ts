@@ -1,11 +1,11 @@
 import { Authenticate } from './../middleware/auth';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import express, { Request, Response, Router, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
 
 import { db } from '../database/database';
+import { generateToken, findByToken } from '../utils/auth';
 
 const upload = multer({
 	dest: './uploads/avatars',
@@ -21,9 +21,6 @@ const upload = multer({
 		cb(null, true);
 	}
 });
-
-const generateToken = (email: string) => {};
-
 const router: Router = express.Router();
 
 // get all users
@@ -44,55 +41,57 @@ router.get(`/users/:id`, async (req: Request, res: Response) => {
 
 // register user
 router.post(`/users/register`, async (req: Request, res: Response) => {
-	const { email, userName, password } = req.body;
-	const name = userName;
+	const { email, name, password } = req.body;
 
 	const id = await uuid.v4();
 
 	const hash = await bcrypt.hash(password, 10);
 
-	db.transaction((trx) => {
-		trx
-			.insert({
-				id,
-				hash,
-				name,
-				email
-			})
-			.into('users')
-			.returning('id')
-			.then((user) => {
-				const { id } = user[0];
-				req.session = { id };
-				res.json(user[0]);
-			})
-			.then(trx.commit)
-			.catch(trx.rollback);
-	});
+	db('users')
+		.insert({
+			id,
+			hash,
+			name,
+			email
+		})
+		.returning('*')
+		.then(async (user) => {
+			const { id, email, name } = user[0];
+			const token = await generateToken(id);
+			const userInfo = {
+				email,
+				name
+			};
+			res.header('Authorization', `Bearer ${token}`).json(userInfo);
+		});
 });
 
 // login user
 router.post(`/users/login`, async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 
-	const hash = await bcrypt.hash(password, 10);
+	return db
+		.select('*')
+		.from('users')
+		.where('email', '=', email)
+		.then(async (user) => {
+			const { hash, name, email, id } = user[0];
 
-	const isValid = await bcrypt.compare(password, hash);
-	if (isValid) {
-		return db
-			.select('*')
-			.from('users')
-			.where('email', '=', email)
-			.then((user) => {
-				const { id } = user[0];
-				req.session = { id };
-				res.json(user[0].id);
-			})
-			.catch((e) => res.status(400).json('User not found'));
-		// finish login
-	} else {
-		res.status(400).json('Invalid credentials');
-	}
+			const isValid = await bcrypt.compare(password, hash);
+
+			if (isValid) {
+				const token = await generateToken(id);
+				let userInfo = {
+					email,
+					name
+				};
+
+				res.header('Authorization', `Bearer ${token}`).json(userInfo);
+			} else {
+				res.status(400).json('Invalid credentials');
+			}
+		})
+		.catch((e) => res.status(400).json('User not found'));
 });
 
 // logout user
@@ -100,10 +99,6 @@ router.get(
 	`/users/logout`,
 	Authenticate,
 	async (req: Request, res: Response) => {
-		if (req.session) {
-			req.session = undefined;
-			return res.json('Succesfully logged out');
-		}
 		res.json('already logged out');
 	}
 );
@@ -113,6 +108,9 @@ router.delete(
 	`/users/:id`,
 	Authenticate,
 	async (req: Request, res: Response) => {
+		const { Authorization } = req.headers;
+		const authId = findByToken;
+
 		const { id } = req.params;
 
 		const user = await db('users')

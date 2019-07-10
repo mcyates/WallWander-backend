@@ -1,3 +1,4 @@
+import { Authenticate } from './middleware/auth';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import helmet = require('helmet');
@@ -15,8 +16,8 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(helmet());
 
+// app.use(Authenticate);
 app.use(bodyParser.json());
-
 app.use(userRouter);
 app.use(imageRouter);
 
