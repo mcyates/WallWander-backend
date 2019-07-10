@@ -13,8 +13,12 @@ initDb();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
 app.use(helmet());
+app.use(
+	cors({
+		exposedHeaders: ['Authorization']
+	})
+);
 
 // app.use(Authenticate);
 app.use(bodyParser.json());
