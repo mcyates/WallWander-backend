@@ -10,9 +10,7 @@ export const generateToken = async (id: string) => {
 export const findByToken = async (token: string) => {
 	console.log(token);
 	if (token) {
-		const tokenArr = token.split(' ');
-		const payload = tokenArr[1];
-		let decoded = await jwt.verify(payload, `${process.env.SECRET}`);
+		let decoded = await jwt.verify(token, `${process.env.SECRET}`);
 
 		const user = await db
 			.select('*')

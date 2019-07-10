@@ -62,7 +62,7 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 				email,
 				name
 			};
-			res.header('Authorization', `Bearer ${token}`).json(userInfo);
+			res.header('Authorization', `${token}`).json(userInfo);
 		});
 });
 
@@ -86,7 +86,7 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 					name
 				};
 
-				res.header('Authorization', `Bearer ${token}`).json(userInfo);
+				res.header('Authorization', `${token}`).json(userInfo);
 			} else {
 				res.status(400).json('Invalid credentials');
 			}
