@@ -41,7 +41,7 @@ router.get(`/users/:id`, async (req: Request, res: Response) => {
 
 // register user
 router.post(`/users/register`, async (req: Request, res: Response) => {
-	const { email, name, password } = req.body;
+	const { email, password } = req.body;
 
 	const id = await uuid.v4();
 
@@ -51,7 +51,6 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 		.insert({
 			id,
 			hash,
-			name,
 			email
 		})
 		.returning('*')
@@ -59,10 +58,9 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 			const { id, email, name } = user[0];
 			const token = await generateToken(id);
 			const userInfo = {
-				email,
-				name
+				email
 			};
-			res.header('Authorization', `${token}`).json(userInfo);
+			res.header('authorization', `${token}`).json(userInfo);
 		});
 });
 
@@ -86,7 +84,7 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 					name
 				};
 
-				res.header('Authorization', `${token}`).json(userInfo);
+				res.header('authorization', `${token}`).json(userInfo);
 			} else {
 				res.status(400).json('Invalid credentials');
 			}

@@ -16,7 +16,7 @@ const port = process.env.PORT || 4000;
 app.use(helmet());
 app.use(
 	cors({
-		exposedHeaders: ['Authorization']
+		exposedHeaders: ['authorization']
 	})
 );
 

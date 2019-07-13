@@ -41,9 +41,10 @@ router.get(`/images/:id`, async (req: Request, res: Response) => {
 // upload new image
 router.post(
 	`/images/upload`,
-	Authenticate,
-	upload.single('upload'),
+	// Authenticate,
+	upload.single('wallpaper'),
 	async (req: any, res: Response) => {
+		const authorId = req.headers.authorization;
 		const id = await uuid.v4();
 		console.log(req.file);
 
