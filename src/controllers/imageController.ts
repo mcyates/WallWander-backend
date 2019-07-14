@@ -4,9 +4,10 @@ import multer from 'multer';
 import uuid from 'uuid';
 
 import { db } from '../database/database';
+import imgUpload from '../cloudinary';
 
 const upload = multer({
-	dest: './uploads/wallpapers',
+	dest: './uploads',
 	limits: {
 		fileSize: 10000000
 	},
@@ -46,9 +47,11 @@ router.post(
 	async (req: any, res: Response) => {
 		const authorId = req.headers.authorization;
 		const id = await uuid.v4();
-		console.log(req.file);
-
-		res.json(req.file).status(201);
+		let urls;
+		imgUpload(req.file).then((results) => {
+			urls = results;
+			res.status(201).json(urls);
+		});
 	},
 	(error: Error, req: Request, res: Response, next: NextFunction) => {
 		res.status(400).json({ error: error.message });

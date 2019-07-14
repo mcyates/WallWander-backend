@@ -1,26 +1,11 @@
 import { Authenticate } from './../middleware/auth';
 import bcrypt from 'bcryptjs';
 import express, { Request, Response, Router, NextFunction } from 'express';
-import multer from 'multer';
 import uuid from 'uuid';
 
 import { db } from '../database/database';
 import { generateToken, findByToken } from '../utils/auth';
 
-const upload = multer({
-	dest: './uploads/avatars',
-	limits: {
-		fileSize: 2000000
-	},
-	fileFilter(req, file, cb) {
-		const isImage = /\.(?:jpg|jpeg|gif|png|webP)/g;
-		if (isImage.test(file.originalname.toLowerCase()) === false) {
-			return cb(new Error('file must be a image'), false);
-		}
-
-		cb(null, true);
-	}
-});
 const router: Router = express.Router();
 
 // get all users
@@ -116,19 +101,6 @@ router.delete(
 			.del();
 
 		return res.send('res');
-	}
-);
-
-// upload user avatar
-router.post(
-	`/users/avatar`,
-	upload.single('upload'),
-	Authenticate,
-	async (req: Request, res: Response) => {
-		res.json(req.file).status(201);
-	},
-	(error: Error, req: Request, res: Response, next: NextFunction) => {
-		res.status(400).json({ error: error.message });
 	}
 );
 

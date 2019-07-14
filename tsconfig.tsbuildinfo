@@ -97,6 +97,10 @@
         "version": "28569d59e07d4378cb3d54979c4c60f9f06305c9bb6999ffe6cab758957adc46",
         "signature": "28569d59e07d4378cb3d54979c4c60f9f06305c9bb6999ffe6cab758957adc46"
       },
+      "c:/webstuff/typescript/wallwander/backend/src/cloudinary.ts": {
+        "version": "1a91caaad9e41ca611034bcb642630b7c93cd23a520a5ce9ecc2857fe2caaa34",
+        "signature": "0d40b68b199df988d196fd9f420ff9f38abcc3d97078939d9ac3f7b8624c8727"
+      },
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/inspector.d.ts": {
         "version": "7e49dbf1543b3ee54853ade4c5e9fa460b6a4eca967efe6bf943e0c505d087ed",
         "signature": "7e49dbf1543b3ee54853ade4c5e9fa460b6a4eca967efe6bf943e0c505d087ed"
@@ -158,11 +162,11 @@
         "signature": "7764bc7c6b9d5186e4b2f6193ce8de49fcd9d38212485d6d67d9e627c2164d6a"
       },
       "c:/webstuff/typescript/wallwander/backend/src/database/database.ts": {
-        "version": "54293221a3f253ac5469ea1fe4067166173d45dbd0ce76d9b965d936c2233539",
+        "version": "00df7ecfc8b1f6e1bac29e68e29a8a682c578940fbd5e86f2da54985d26949e5",
         "signature": "1c99a4e95a078097e754f54c4c8d8ef3308e10b5878568edc10ed4fe5f9b5a95"
       },
       "c:/webstuff/typescript/wallwander/backend/src/utils/auth.ts": {
-        "version": "2122e9d8b359b05c77bbefbaacf5875dcce90957092c21750d0bb44c2986eedd",
+        "version": "2246cbb5273add1310595fde9957321adc41377a6a48ac267e74a1f05963aa6d",
         "signature": "1788d9b8a3d2da0fb10524453b3881ceb6ee2dd83d67082beacf49b406ffb9c6"
       },
       "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts": {
@@ -181,10 +185,6 @@
         "version": "9dfe431ab1485e17a6055e186c49da9d23af74b965f2e99f8acc6c958778608f",
         "signature": "9dfe431ab1485e17a6055e186c49da9d23af74b965f2e99f8acc6c958778608f"
       },
-      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": {
-        "version": "bf05d8ffccf521f7aea6f2e5e9942f11fe05fcce2d06f0389f3db943ed042602",
-        "signature": "bf05d8ffccf521f7aea6f2e5e9942f11fe05fcce2d06f0389f3db943ed042602"
-      },
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/interfaces.d.ts": {
         "version": "3ba72b1127de9897cf5b2de9be1d2d91166d1335a096435e59b0797745b7c3f1",
         "signature": "3ba72b1127de9897cf5b2de9be1d2d91166d1335a096435e59b0797745b7c3f1"
@@ -194,15 +194,19 @@
         "signature": "ad52430a0480fd221ff10281a93e3683cbc6666027e24aea148db93d732a68f7"
       },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts": {
-        "version": "aac80c62256f7737f3318b24fe4e8f86c0096649eea552113aa4ed945963fa46",
+        "version": "82e4caee70e9ee286b7cb61e33aa784116d9ad03d822d5a129b3aba8a2bfaa82",
         "signature": "324f34044e579046d1477a38093109dfdad2e671fc14456bbd0a575478ddc84c"
       },
+      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": {
+        "version": "bf05d8ffccf521f7aea6f2e5e9942f11fe05fcce2d06f0389f3db943ed042602",
+        "signature": "bf05d8ffccf521f7aea6f2e5e9942f11fe05fcce2d06f0389f3db943ed042602"
+      },
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts": {
-        "version": "7fc94224e59bf6be22b843ffda0ebd68824046ea813fca0033e04a3cf42a8fff",
+        "version": "692cb3aa14b5191557edc18e705c432b3bb40ce0143cebcae44c1a4e9611d081",
         "signature": "60b502af5c6fa7b2adec9a18b7d27bf8d5cf51b0f487ccaf3898dfbc05a90ece"
       },
       "c:/webstuff/typescript/wallwander/backend/src/index.ts": {
-        "version": "9d667b216933408cb4ec3de837b0e576e36338cbe37c0f12ae4d85333a6e9f55",
+        "version": "a043d6751ff5d8c7c4c5e45270e7a94a047fa970b1576843f521611bf88cd0b8",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "c:/webstuff/typescript/wallwander/backend/node_modules/@babel/types/lib/index.d.ts": {
@@ -278,7 +282,7 @@
       "incremental": true,
       "target": 2,
       "module": 1,
-      "outDir": "C:/webStuff/Typescript/WallWander/backend/dist",
+      "outDir": "C:/webStuff/Typescript/WallWander/backend/build",
       "rootDir": "C:/webStuff/Typescript/WallWander/backend/src",
       "removeComments": true,
       "downlevelIteration": true,
@@ -386,6 +390,10 @@
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
+      "c:/webstuff/typescript/wallwander/backend/src/cloudinary.ts": [
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
+      ],
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/inspector.d.ts": [
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
@@ -488,11 +496,6 @@
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
-      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": [
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts",
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
-      ],
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/interfaces.d.ts": [
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts"
@@ -506,10 +509,14 @@
         "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/bcryptjs/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts",
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/src/database/database.ts",
         "c:/webstuff/typescript/wallwander/backend/src/utils/auth.ts",
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
+      ],
+      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": [
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
@@ -519,6 +526,7 @@
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/src/database/database.ts",
+        "c:/webstuff/typescript/wallwander/backend/src/cloudinary.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
@@ -808,11 +816,6 @@
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
-      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": [
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts",
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
-        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
-      ],
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/interfaces.d.ts": [
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts",
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts"
@@ -824,6 +827,11 @@
       ],
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts": [
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts"
+      ],
+      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts": [
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express/index.d.ts",
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
+        "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts"
       ],
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts": [
         "c:/webstuff/typescript/wallwander/backend/node_modules/@types/express-serve-static-core/index.d.ts"
@@ -940,6 +948,7 @@
       "c:/users/marigi/appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.string.d.ts",
       "c:/users/marigi/appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.intl.d.ts",
       "c:/users/marigi/appdata/roaming/npm/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "c:/webstuff/typescript/wallwander/backend/src/cloudinary.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/inspector.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/base.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/node/ts3.2/index.d.ts",
@@ -957,13 +966,14 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/pg/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/src/database/database.ts",
       "c:/webstuff/typescript/wallwander/backend/src/utils/auth.ts",
+      "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/helmet/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/cors/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/bcryptjs/index.d.ts",
-      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/interfaces.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/uuid/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/src/controllers/usercontroller.ts",
+      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/multer/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/src/controllers/imagecontroller.ts",
       "c:/webstuff/typescript/wallwander/backend/src/index.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@babel/types/lib/index.d.ts",
@@ -982,9 +992,8 @@
       "c:/webstuff/typescript/wallwander/backend/node_modules/jest-diff/build/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/jest/index.d.ts",
       "c:/webstuff/typescript/wallwander/backend/node_modules/@types/stack-utils/index.d.ts",
-      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/yargs/index.d.ts",
-      "c:/webstuff/typescript/wallwander/backend/src/middleware/auth.ts"
+      "c:/webstuff/typescript/wallwander/backend/node_modules/@types/yargs/index.d.ts"
     ]
   },
-  "version": "3.5.1"
+  "version": "3.5.3"
 }
