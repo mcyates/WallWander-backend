@@ -42,8 +42,11 @@ export const initDb = () => {
 						.primary()
 						.unique();
 					table.string('url');
+					table.string('secureUrl');
 					table.string('title');
-					table.string('resolution');
+					table.string('height');
+					table.string('width');
+					table.string('format');
 					table.bigInteger('views');
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 					table.uuid('authorId').references('users.id');

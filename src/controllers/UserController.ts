@@ -43,7 +43,8 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 			const { id, email, name } = user[0];
 			const token = await generateToken(id);
 			const userInfo = {
-				email
+				email,
+				id
 			};
 			res.header('authorization', `${token}`).json(userInfo);
 		});
@@ -58,15 +59,14 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 		.from('users')
 		.where('email', '=', email)
 		.then(async (user) => {
-			const { hash, name, email, id } = user[0];
+			const { hash, email, id } = user[0];
 
 			const isValid = await bcrypt.compare(password, hash);
 
 			if (isValid) {
 				const token = await generateToken(id);
 				let userInfo = {
-					email,
-					name
+					email
 				};
 
 				res.header('authorization', `${token}`).json(userInfo);

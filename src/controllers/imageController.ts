@@ -1,8 +1,9 @@
-import { Authenticate } from './../middleware/auth';
+import jwt from 'jsonwebtoken';
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
 
+import { Authenticate } from './../middleware/auth';
 import { db } from '../database/database';
 import imgUpload from '../cloudinary';
 
@@ -45,12 +46,30 @@ router.post(
 	// Authenticate,
 	upload.single('wallpaper'),
 	async (req: any, res: Response) => {
-		const authorId = req.headers.authorization;
+		const { authorization } = req.headers;
+		let authorId = await jwt.verify(authorization, `${process.env.SECRET}`);
+		console.log(authorId);
 		const id = await uuid.v4();
-		let urls;
-		imgUpload(req.file).then((results) => {
-			urls = results;
-			res.status(201).json(urls);
+
+		await imgUpload(req.file).then((image) => {
+			const { url, secureUrl, width, height, format, title } = image;
+			db('images')
+				.insert({
+					id,
+					url,
+					secureUrl,
+					title,
+					width,
+					height,
+					format,
+					views: 1,
+					authorId
+				})
+				.returning('*')
+				.then(async (image) => {
+					const img = image[0];
+					res.status(201).json(img);
+				});
 		});
 	},
 	(error: Error, req: Request, res: Response, next: NextFunction) => {

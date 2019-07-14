@@ -23,11 +23,15 @@ const imgUpload = async (file: File) => {
 		})
 		.catch((e: Error) => console.error(e));
 	// console.log(result);
-	const urls = {
+	const image = {
 		url: result.url,
-		secureUrl: result.secure_url
+		secureUrl: result.secure_url,
+		width: result.width,
+		height: result.height,
+		format: result.format,
+		title: result.public_id
 	};
-	return urls;
+	return image;
 };
 
 export default imgUpload;

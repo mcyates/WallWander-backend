@@ -3,6 +3,7 @@ import db from '../database/database';
 
 export const generateToken = async (id: string) => {
 	const payload = id;
+	console.log(payload);
 	const token = await jwt.sign(payload, `${process.env.SECRET}`);
 	return token;
 };
