@@ -34,21 +34,25 @@ router.get(`/images`, async (req: Request, res: Response) => {
 router.get(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const image = await db
-		.select('id')
+		.select('*')
 		.from('images')
 		.where({ id });
-	return res.send(image);
+	console.log(image);
+	await db('images')
+		.where({ id })
+		.increment('views', 1)
+		.catch((e) => console.log(e));
+	return res.json(image);
 });
 
 // upload new image
 router.post(
 	`/images/upload`,
-	// Authenticate,
+	Authenticate,
 	upload.single('wallpaper'),
 	async (req: any, res: Response) => {
 		const { authorization } = req.headers;
 		let authorId = await jwt.verify(authorization, `${process.env.SECRET}`);
-		console.log(authorId);
 		const id = await uuid.v4();
 
 		await imgUpload(req.file).then((image) => {
@@ -62,7 +66,7 @@ router.post(
 					width,
 					height,
 					format,
-					views: 1,
+					views: 0,
 					authorId
 				})
 				.returning('*')
