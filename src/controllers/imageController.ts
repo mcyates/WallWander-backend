@@ -2,10 +2,14 @@ import jwt from 'jsonwebtoken';
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import uuid from 'uuid';
+// @ts-ignore
+import setUpPaginator from 'knex-paginator';
 
 import { Authenticate } from './../middleware/auth';
 import { db } from '../database/database';
 import imgUpload from '../cloudinary';
+
+setUpPaginator(db);
 
 const upload = multer({
 	dest: './uploads',
@@ -26,8 +30,19 @@ export const router = express.Router();
 
 // get all images
 router.get(`/images`, async (req: Request, res: Response) => {
-	const images = await db.select('*').from('images');
-	return res.json(images);
+	if (req.query.limit && req.query.page) {
+		console.log(req.query);
+		const limit = req.query.limit || 5;
+		const page = parseFloat(req.query.page) + 1 || 1;
+		const images = await db
+			.select('*')
+			.from('images')
+			// @ts-ignore
+			.paginate(limit, page, true);
+		console.log(images);
+		return res.json(images);
+	}
+	return res.status(400).json('missing query parameters');
 });
 
 // get image by id
@@ -67,7 +82,8 @@ router.post(
 					height,
 					format,
 					views: 0,
-					authorId
+					authorId,
+					authorToken: authorization
 				})
 				.returning('*')
 				.then(async (image) => {

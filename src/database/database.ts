@@ -1,5 +1,7 @@
 import knex from 'knex';
 import pg from 'pg';
+// @ts-ignore
+import setUpPaginator from 'knex-paginator';
 
 export const db = knex({
 	client: 'pg',
@@ -10,6 +12,8 @@ export const db = knex({
 		database: `${process.env.POSTGRES_DB}`
 	}
 });
+
+setUpPaginator(db);
 
 export const initDb = () => {
 	db.schema.hasTable('users').then((exists) => {
@@ -50,6 +54,7 @@ export const initDb = () => {
 					table.bigInteger('views');
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 					table.uuid('authorId').references('users.id');
+					table.string('authorToken');
 				})
 				.then(() => console.log('images created'));
 		}
