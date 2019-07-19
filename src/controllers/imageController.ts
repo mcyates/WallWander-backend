@@ -31,7 +31,6 @@ export const router = express.Router();
 // get all images
 router.get(`/images`, async (req: Request, res: Response) => {
 	if (req.query.limit && req.query.page) {
-		console.log(req.query);
 		const limit = req.query.limit || 5;
 		const page = parseFloat(req.query.page) + 1 || 1;
 		const images = await db
@@ -39,7 +38,6 @@ router.get(`/images`, async (req: Request, res: Response) => {
 			.from('images')
 			// @ts-ignore
 			.paginate(limit, page, true);
-		console.log(images);
 		return res.json(images);
 	}
 	return res.status(400).json('missing query parameters');
@@ -52,7 +50,6 @@ router.get(`/images/:id`, async (req: Request, res: Response) => {
 		.select('*')
 		.from('images')
 		.where({ id });
-	console.log(image);
 	await db('images')
 		.where({ id })
 		.increment('views', 1)
@@ -93,7 +90,7 @@ router.post(
 		});
 	},
 	(error: Error, req: Request, res: Response, next: NextFunction) => {
-		res.status(400).json({ error: error.message });
+		res.sendStatus(400).json({ error: error.message });
 	}
 );
 
@@ -101,11 +98,12 @@ router.post(
 router.delete(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 
-	const image = await db('images')
+	const image = await db('images').where({ id });
+	console.log(image);
+	await db('images')
 		.where({ id })
 		.del();
-
-	return res.send(image);
+	return res.json(image[0]);
 });
 
 export default router;
