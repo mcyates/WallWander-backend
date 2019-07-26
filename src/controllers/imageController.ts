@@ -99,7 +99,6 @@ router.delete(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	const image = await db('images').where({ id });
-	console.log(image);
 	await db('images')
 		.where({ id })
 		.del();
