@@ -15,14 +15,18 @@ const port = process.env.PORT || 4000;
 
 const whitelist = ['mattcyates.com', 'www.mattcyates.com'];
 
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept, x-auth'
+	);
+	res.header('Access-Control-Expose-Headers', 'x-auth');
+	next();
+});
+
 const corsOptions = {
-	origin: function(origin: any, callback: any) {
-		if (whitelist.indexOf(origin) !== -1) {
-			callback(null, true);
-		} else {
-			callback(new Error('Not allowed by CORS'));
-		}
-	},
 	exposedHeaders: ['authorization']
 };
 
