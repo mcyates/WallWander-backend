@@ -8,6 +8,7 @@
 		"docker:down": "docker-compose down",
 		"dev": "env-cmd -f ./config/dev.env ts-node src/index.ts",
 		"compile": "tsc",
+		"prod": "env-cmd -f ./config/dev.env pm2 start build/index.js",
 		"start": "env-cmd -f ./config/dev.env nodemon build/index.js"
 	},
 	"repository": {
