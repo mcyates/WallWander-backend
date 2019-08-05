@@ -59,14 +59,15 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 		.from('users')
 		.where('email', '=', email)
 		.then(async (user) => {
-			const { hash, email, id } = user[0];
+			const { hash, email, name, id } = user[0];
 
 			const isValid = await bcrypt.compare(password, hash);
 
 			if (isValid) {
 				const token = await generateToken(id);
 				let userInfo = {
-					email
+					email,
+					name
 				};
 
 				res.header('authorization', `${token}`).json(userInfo);
@@ -74,7 +75,21 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 				res.status(400).json('Invalid credentials');
 			}
 		})
-		.catch((e) => res.status(400).json('User not found'));
+		.catch((e) => res.status(404).json('User not found'));
+});
+
+// set Username
+router.post('/users/name', Authenticate, (req: Request, res: Response) => {
+	const { name, email } = req.body;
+	console.log(name, email);
+
+	return db('users')
+		.where({ email })
+		.update({ name: name })
+		.then(() => {
+			res.status(201).json(name);
+		})
+		.catch((e) => res.status(404).json('user not found'));
 });
 
 // logout user

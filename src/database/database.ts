@@ -28,6 +28,7 @@ export const initDb = () => {
 						.string('email')
 						.unique()
 						.notNullable();
+						table.string('name')
 					table.string('hash').notNullable();
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 				})
