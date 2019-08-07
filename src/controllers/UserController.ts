@@ -36,6 +36,7 @@ router.post(`/users/register`, async (req: Request, res: Response) => {
 		.insert({
 			id,
 			hash,
+			uploads: 0,
 			email
 		})
 		.returning('*')
@@ -67,6 +68,7 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 				const token = await generateToken(id);
 				let userInfo = {
 					email,
+					id,
 					name
 				};
 

@@ -28,13 +28,12 @@ export const initDb = () => {
 						.string('email')
 						.unique()
 						.notNullable();
-						table.string('name')
+					table.integer('uploads');
+					table.string('name');
 					table.string('hash').notNullable();
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 				})
 				.then(() => console.log('table created'));
-		} else {
-			// console.log('users already exists');
 		}
 	});
 
@@ -52,14 +51,13 @@ export const initDb = () => {
 					table.string('height');
 					table.string('width');
 					table.string('format');
+					table.boolean('nsfw').notNullable();
 					table.bigInteger('views');
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 					table.uuid('authorId').references('users.id');
-					table.string('authorToken');
 				})
 				.then(() => console.log('images created'));
 		}
-		// console.log('images already exists');
 	});
 };
 
