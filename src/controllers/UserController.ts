@@ -18,10 +18,10 @@ router.get(`/users`, Authenticate, async (req: Request, res: Response) => {
 router.get(`/users/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 	const user = await db
-		.select('id')
+		.select(['name', 'uploads', 'createdAt'])
 		.from('users')
 		.where({ id });
-	return res.send('users');
+	return res.status(200).json(user);
 });
 
 // register user
