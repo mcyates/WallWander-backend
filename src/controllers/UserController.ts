@@ -83,7 +83,6 @@ router.post(`/users/login`, async (req: Request, res: Response) => {
 // set Username
 router.post('/users/name', Authenticate, (req: Request, res: Response) => {
 	const { name, email } = req.body;
-	console.log(name, email);
 
 	return db('users')
 		.where({ email })

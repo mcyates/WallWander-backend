@@ -45,7 +45,7 @@ router.get(`/images`, async (req: Request, res: Response) => {
 
 // get a users uploads
 router.get(`/images/uploads/:id`, async (req: Request, res: Response) => {
-	const id = req.params;
+	const { id } = req.params;
 	if (req.query.limit && req.query.page) {
 		const limit = req.query.limit || 5;
 		const page = parseFloat(req.query.page) + 1 || 1;
@@ -102,8 +102,6 @@ router.post(
 					width,
 					height,
 					format,
-					views: 0,
-					nsfw: false,
 					authorId
 				})
 				.returning('*')
@@ -121,6 +119,24 @@ router.post(
 		res.sendStatus(400).json({ error: error.message });
 	}
 );
+
+// favorite an image
+router.post('/images/:id/favorite', async (req: Request, res: Response) => {
+	const imageId = req.params.id;
+	const { userId } = req.body;
+	const id = uuid.v4();
+	await db('favorites')
+		.insert({
+			id,
+			userId,
+			imageId
+		})
+		.catch((e) => {
+			res.status(404).json(e);
+		});
+
+	res.status(200).json('success');
+});
 
 // delete image by id
 router.delete(`/images/:id`, async (req: Request, res: Response) => {

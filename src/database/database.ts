@@ -44,19 +44,52 @@ export const initDb = () => {
 					table
 						.uuid('id')
 						.primary()
-						.unique();
-					table.string('url');
-					table.string('secureUrl');
+						.unique()
+						.notNullable();
+					table.string('url').notNullable();
+					table.string('secureUrl').notNullable();
 					table.string('title');
 					table.string('height');
 					table.string('width');
 					table.string('format');
-					table.boolean('nsfw').notNullable();
-					table.bigInteger('views');
+					table
+						.boolean('nsfw')
+						.notNullable()
+						.defaultTo(false);
+					table
+						.bigInteger('views')
+						.notNullable()
+						.defaultTo(0);
 					table.timestamp('createdAt').defaultTo(db.fn.now());
-					table.uuid('authorId').references('users.id');
+					table
+						.uuid('authorId')
+						.references('id')
+						.inTable('users')
+						.notNullable();
 				})
 				.then(() => console.log('images created'));
+		}
+	});
+
+	db.schema.hasTable('favorites').then((exists) => {
+		if (!exists) {
+			db.schema
+				.createTable('favorites', (table) => {
+					table
+						.uuid('id')
+						.primary()
+						.unique()
+						.notNullable();
+					table
+						.uuid('userId')
+						.references('id')
+						.inTable('users');
+					table
+						.uuid('imageId')
+						.references('id')
+						.inTable('images');
+				})
+				.then(() => console.log('favorites created'));
 		}
 	});
 };
