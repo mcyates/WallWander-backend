@@ -76,11 +76,6 @@ export const initDb = () => {
 			db.schema
 				.createTable('favorites', (table) => {
 					table
-						.uuid('id')
-						.primary()
-						.unique()
-						.notNullable();
-					table
 						.uuid('userId')
 						.references('users.id')
 						.notNullable();
@@ -88,6 +83,7 @@ export const initDb = () => {
 						.uuid('imageId')
 						.references('images.id')
 						.notNullable();
+					table.primary(['imageId', 'userId']);
 				})
 				.then(() => console.log('favorites created'));
 		}

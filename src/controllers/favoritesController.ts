@@ -6,14 +6,19 @@ import { db } from '../database/database';
 
 export const router = express.Router();
 
+// get favorite status of currently viewed image
+router.post('/favorite/:id/status', (req: Request, res: Response) => {
+	res.status(200).json('favorited?: ');
+});
+
 // favorite an image
-router.post('/images/:id/favorite', async (req: Request, res: Response) => {
+router.post('/image/:id/favorite', async (req: Request, res: Response) => {
 	const imageId = req.params.id;
 	const { userId } = req.body;
-	const id = uuid.v4();
+	// const id = uuid.v4();
 	await db('favorites')
 		.insert({
-			id,
+			// id,
 			userId,
 			imageId
 		})
