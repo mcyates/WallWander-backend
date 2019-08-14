@@ -82,12 +82,12 @@ export const initDb = () => {
 						.notNullable();
 					table
 						.uuid('userId')
-						.references('id')
-						.inTable('users');
+						.references('users.id')
+						.notNullable();
 					table
 						.uuid('imageId')
-						.references('id')
-						.inTable('images');
+						.references('images.id')
+						.notNullable();
 				})
 				.then(() => console.log('favorites created'));
 		}

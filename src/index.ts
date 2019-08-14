@@ -4,8 +4,9 @@ import bodyParser from 'body-parser';
 import helmet = require('helmet');
 import cors from 'cors';
 
-import userRouter from './controllers/UserController';
+import favoritesRouter from './controllers/favoritesController';
 import imageRouter from './controllers/ImageController';
+import userRouter from './controllers/UserController';
 import { initDb } from './database/database';
 
 initDb();
@@ -33,8 +34,10 @@ app.use(helmet());
 
 // app.use(Authenticate);
 app.use(bodyParser.json());
-app.use(userRouter);
+
+app.use(favoritesRouter);
 app.use(imageRouter);
+app.use(userRouter);
 
 app.get('/', (req: Request, res: Response) => {
 	return res.status(200).json('hello');
