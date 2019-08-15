@@ -44,20 +44,39 @@ router.get(`/images`, async (req: Request, res: Response) => {
 });
 
 // get a users uploads
-router.get(`/images/uploads/:id`, async (req: Request, res: Response) => {
-	const { id } = req.params;
+router.get(`/images/uploads/:userId`, async (req: Request, res: Response) => {
+	const { userId } = req.params;
 	if (req.query.limit && req.query.page) {
 		const limit = req.query.limit || 5;
 		const page = parseFloat(req.query.page) + 1 || 1;
 		const images = await db
 			.select('*')
 			.from('images')
-			.where({ authorId: id })
+			.where({ authorId: userId })
 			// @ts-ignore
 			.paginate(limit, page, true);
 		return res.json(images);
 	}
 	return res.status(400).json('missing query parameters');
+});
+
+// get a users favorites
+router.get('/images/favorites/:userId', async (req: Request, res: Response) => {
+	const { userId } = req.params;
+	if (req.query.limit && req.query.page) {
+		const limit = req.query.limit || 5;
+		const page = parseFloat(req.query.page) + 1 || 1;
+
+		const images = await db
+			.select(['imageId as id', 'secureUrl', 'height', 'width', 'views'])
+			.from('images')
+			.innerJoin('favorites', 'images.id', 'favorites.imageId')
+			.where({ 'favorites.userId': userId })
+			// @ts-ignore
+			.paginate(limit, page, true)
+			.catch((e) => console.log(e));
+		return res.status(200).json(images);
+	}
 });
 
 // get image by id
@@ -88,7 +107,7 @@ router.post(
 	upload.single('wallpaper'),
 	async (req: any, res: Response) => {
 		const { authorization } = req.headers;
-		let authorId = await jwt.verify(authorization, `${process.env.SECRET}`);
+		let userId = await jwt.verify(authorization, `${process.env.SECRET}`);
 		const id = await uuid.v4();
 
 		await imgUpload(req.file).then((image) => {
@@ -102,13 +121,13 @@ router.post(
 					width,
 					height,
 					format,
-					authorId
+					userId
 				})
 				.returning('*')
 				.then(async (image) => {
 					const img = image[0];
 					await db('users')
-						.where({ id: authorId })
+						.where({ id: userId })
 						.increment('uploads', 1);
 					res.status(201).json(img);
 				})
