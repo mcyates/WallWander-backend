@@ -88,6 +88,46 @@ export const initDb = () => {
 				.then(() => console.log('favorites created'));
 		}
 	});
+
+	db.schema.hasTable('tags').then((exists) => {
+		if (!exists) {
+			db.schema
+				.createTable('tags', (table) => {
+					table
+						.uuid('id')
+						.primary()
+						.unique()
+						.notNullable();
+					table
+						.string('tag')
+						.unique()
+						.notNullable();
+					table
+						.boolean('nsfw')
+						.notNullable()
+						.defaultTo(false);
+				})
+				.then(() => console.log('tags created'));
+		}
+	});
+
+	db.schema.hasTable('images_tags').then((exists) => {
+		if (!exists) {
+			db.schema
+				.createTable('images_tags', (table) => {
+					table
+						.uuid('imageId')
+						.references('images.id')
+						.notNullable();
+					table
+						.uuid('tagId')
+						.references('tags.id')
+						.notNullable();
+					table.primary(['imageId', 'tagId']);
+				})
+				.then(() => console.log('images-tags created'));
+		}
+	});
 };
 
 export default db;

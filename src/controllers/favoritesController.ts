@@ -44,7 +44,6 @@ router.post(
 );
 
 // unfavorite an image
-
 router.delete(
 	'/favorite/:imageId',
 	Authenticate,
@@ -58,7 +57,7 @@ router.delete(
 			})
 			.del();
 
-		return res.status(200).json(fav);
+		return res.status(204).json();
 	}
 );
 

@@ -74,7 +74,7 @@ router.get('/images/favorites/:userId', async (req: Request, res: Response) => {
 			.where({ 'favorites.userId': userId })
 			// @ts-ignore
 			.paginate(limit, page, true)
-			.catch((e) => console.log(e));
+			.catch((e: any) => console.log(e));
 		return res.status(200).json(images);
 	}
 });
