@@ -13,10 +13,13 @@ router.get(
 		const { imageId } = req.params;
 
 		const { userId } = req.query;
-		const data = await db('favorites').where({
+		const data: any = await db('favorites').where({
 			userId,
 			imageId
 		});
+		// .catch((e) => {
+		// 	res.status(409).json(e.detail);
+		// });
 		const status = !!data[0].imageId === true && !!data[0].userId === true;
 		res.status(200).json(status);
 	}
@@ -24,20 +27,19 @@ router.get(
 
 // favorite an image
 router.post(
-	'/image/:imageId/favorite',
+	'/favorite/:imageId',
 	Authenticate,
 	async (req: Request, res: Response) => {
 		const { imageId } = req.params;
 
 		const { userId } = req.body;
-		await db('favorites')
-			.insert({
-				userId,
-				imageId
-			})
-			.catch((e) => {
-				res.status(409).json(e.detail);
-			});
+		await db('favorites').insert({
+			userId,
+			imageId
+		});
+		// .catch((e) => {
+		// 	res.status(409).json(e.detail);
+		// });
 
 		return res.status(201).json('success');
 	}
@@ -50,12 +52,16 @@ router.delete(
 	async (req: Request, res: Response) => {
 		const { imageId } = req.params;
 		const { userId } = req.query;
-		const fav = await db('favorites')
+
+		await db('favorites')
 			.where({
 				userId,
 				imageId
 			})
 			.del();
+		// .catch((e) => {
+		// 	res.status(409).json(e.detail);
+		// });
 
 		return res.status(204).json();
 	}

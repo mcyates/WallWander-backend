@@ -12,13 +12,15 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 	const tagIds = await db
 		.select('tagId')
 		.from('images_tags')
-		.where({ imageId });
+		.where({ imageId })
+		.catch((e) => res.status(400).json(e.detail));
 
 	const tags = await db
 		.select(['tags.id', 'tags.tag', 'tags.nsfw'])
 		.from('images_tags')
 		.innerJoin('tags', 'images_tags.tagId', 'tags.id')
-		.where({ 'images_tags.imageId': imageId });
+		.where({ 'images_tags.imageId': imageId })
+		.catch((e) => res.status(400).json(e.detail));
 
 	return res.status(200).json(tags);
 });
@@ -26,6 +28,7 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 	const { imageId } = req.params;
 	const { nsfw, tag } = req.body;
+
 	const tagExists = await db('tags')
 		.select('*')
 		.where({ tag })
@@ -34,7 +37,8 @@ router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 				return false;
 			}
 			return true;
-		});
+		})
+		.catch((e) => res.status(400).json(e.detail));
 
 	if (!tagExists) {
 		const id = await uuid.v4();
@@ -47,7 +51,7 @@ router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 			.catch((e) => res.status(401).json(e.detail));
 	}
 	const data: any = await db
-		.select('id')
+		.select('*')
 		.from('tags')
 		.where({ tag })
 		.catch((e) => res.status(402).json(e.detail));
@@ -61,7 +65,7 @@ router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 		})
 		.catch((e) => res.status(403).json(e.detail));
 
-	return res.status(200).json('success');
+	return res.status(200).json(data);
 });
 
 // remove tag from image
@@ -79,6 +83,9 @@ router.delete(
 					return false;
 				}
 				return true;
+			})
+			.catch((e) => {
+				res.status(409).json(e.detail);
 			});
 		if (tagExists) {
 			const data: any = await db
@@ -89,8 +96,9 @@ router.delete(
 
 			const tagId = data[0].id;
 			await db('images_tags')
-				.where({ tagId })
-				.del();
+				.where({ tagId, imageId })
+				.del()
+				.catch((e) => res.status(400).json(e.detail));
 
 			return res.status(204).json('success');
 		}

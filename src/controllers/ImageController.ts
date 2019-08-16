@@ -37,7 +37,10 @@ router.get(`/images`, async (req: Request, res: Response) => {
 			.select('*')
 			.from('images')
 			// @ts-ignore
-			.paginate(limit, page, true);
+			.paginate(limit, page, true)
+			.catch((e: any) => {
+				res.status(409).json(e.detail);
+			});
 		return res.json(images);
 	}
 	return res.status(400).json('missing query parameters');
@@ -54,7 +57,10 @@ router.get(`/images/uploads/:userId`, async (req: Request, res: Response) => {
 			.from('images')
 			.where({ authorId: userId })
 			// @ts-ignore
-			.paginate(limit, page, true);
+			.paginate(limit, page, true)
+			.catch((error: any) => {
+				res.status(409).json(e.detail);
+			});
 		return res.json(images);
 	}
 	return res.status(400).json('missing query parameters');
@@ -74,7 +80,9 @@ router.get('/images/favorites/:userId', async (req: Request, res: Response) => {
 			.where({ 'favorites.userId': userId })
 			// @ts-ignore
 			.paginate(limit, page, true)
-			.catch((e: any) => console.log(e));
+			.catch((e: any) => {
+				res.status(409).json(e.detail);
+			});
 		return res.status(200).json(images);
 	}
 });
@@ -89,13 +97,19 @@ router.get(`/images/:id`, async (req: Request, res: Response) => {
 	await db('images')
 		.where({ id })
 		.increment('views', 1)
-		.catch((e) => console.log(e));
+		.catch((e: any) => {
+			res.status(409).json(e.detail);
+		});
 	const image = data[0];
 
-	const author = await db
+	const author: any = await db
 		.select('name')
 		.from('users')
-		.where({ id: image.authorId });
+		.where({ id: image.authorId })
+		.catch((e: any) => {
+			res.status(409).json(e.detail);
+		});
+	// @ts-ignore
 	image.authorName = author[0].name;
 	return res.json(image);
 });
@@ -131,7 +145,9 @@ router.post(
 						.increment('uploads', 1);
 					res.status(201).json(img);
 				})
-				.catch((e) => console.log(e));
+				.catch((e: any) => {
+					res.status(409).json(e.detail);
+				});
 		});
 	},
 	(error: Error, req: Request, res: Response, next: NextFunction) => {
@@ -146,10 +162,16 @@ router.delete(`/images/:id`, async (req: Request, res: Response) => {
 	const image: any = await db('images').where({ id });
 	await db('images')
 		.where({ id })
-		.del();
+		.del()
+		.catch((e) => {
+			res.status(409).json(e.detail);
+		});
 	await db('users')
 		.where({ id: image[0].authorId })
-		.decrement('uploads', 1);
+		.decrement('uploads', 1)
+		.catch((e: any) => {
+			res.status(409).json(e.detail);
+		});
 	imgDelete(image[0].title);
 	return res.json(image[0]);
 });
