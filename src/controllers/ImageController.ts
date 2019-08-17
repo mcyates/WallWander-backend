@@ -58,7 +58,7 @@ router.get(`/images/uploads/:userId`, async (req: Request, res: Response) => {
 			.where({ authorId: userId })
 			// @ts-ignore
 			.paginate(limit, page, true)
-			.catch((error: any) => {
+			.catch((e: any) => {
 				res.status(409).json(e.detail);
 			});
 		return res.json(images);

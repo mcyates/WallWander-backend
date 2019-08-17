@@ -92,13 +92,13 @@ router.delete(
 				.select('id')
 				.from('tags')
 				.where({ tag })
-				.catch((e) => res.status(402).json(e.detail));
+				.catch((e: any) => res.status(402).json(e.detail));
 
 			const tagId = data[0].id;
 			await db('images_tags')
 				.where({ tagId, imageId })
 				.del()
-				.catch((e) => res.status(400).json(e.detail));
+				.catch((e: any) => res.status(400).json(e.detail));
 
 			return res.status(204).json('success');
 		}
