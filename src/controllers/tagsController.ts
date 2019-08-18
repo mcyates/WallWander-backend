@@ -3,6 +3,7 @@ import uuid from 'uuid';
 
 import { Authenticate } from '../middleware/auth';
 import { db } from '../database/database';
+import isNsfw from '../utils/tags';
 
 export const router = express.Router();
 
@@ -21,6 +22,13 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 		.innerJoin('tags', 'images_tags.tagId', 'tags.id')
 		.where({ 'images_tags.imageId': imageId })
 		.catch((e) => res.status(400).json(e.detail));
+
+	const nsfw = isNsfw(tags);
+	if (nsfw) {
+		await db('images')
+			.where({ id: imageId })
+			.update({ nsfw: true });
+	}
 
 	return res.status(200).json(tags);
 });
@@ -64,6 +72,12 @@ router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 			tagId
 		})
 		.catch((e) => res.status(403).json(e.detail));
+
+	if (nsfw) {
+		await db('images')
+			.where({ id: imageId })
+			.update({ nsfw: true });
+	}
 
 	return res.status(200).json(data);
 });

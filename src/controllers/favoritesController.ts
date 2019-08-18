@@ -13,13 +13,14 @@ router.get(
 		const { imageId } = req.params;
 
 		const { userId } = req.query;
-		const data: any = await db('favorites').where({
-			userId,
-			imageId
-		});
-		// .catch((e) => {
-		// 	res.status(409).json(e.detail);
-		// });
+		const data: any = await db('favorites')
+			.where({
+				userId,
+				imageId
+			})
+			.catch((e) => {
+				res.status(409).json(e.detail);
+			});
 		const status = !!data[0].imageId === true && !!data[0].userId === true;
 		res.status(200).json(status);
 	}
