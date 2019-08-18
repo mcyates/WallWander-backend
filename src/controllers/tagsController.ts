@@ -24,7 +24,7 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 
 	return res.status(200).json(tags);
 });
-
+// add a tag to an image
 router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 	const { imageId } = req.params;
 	const { nsfw, tag } = req.body;
@@ -74,6 +74,7 @@ router.delete(
 	'/images/:imageId/tags/:tag',
 	async (req: Request, res: Response) => {
 		const { imageId, tag } = req.params;
+		console.log(req.params);
 
 		const tagExists = await db('tags')
 			.select('*')
