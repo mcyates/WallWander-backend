@@ -16,7 +16,7 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 		.where({ imageId })
 		.catch((e) => res.status(400).json(e.detail));
 
-	const tags = await db
+	const tags: any = await db
 		.select(['tags.id', 'tags.tag', 'tags.nsfw'])
 		.from('images_tags')
 		.innerJoin('tags', 'images_tags.tagId', 'tags.id')
