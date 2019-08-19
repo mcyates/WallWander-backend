@@ -121,7 +121,7 @@ router.post(
 	upload.single('wallpaper'),
 	async (req: any, res: Response) => {
 		const { authorization } = req.headers;
-		let userId = await jwt.verify(authorization, `${process.env.SECRET}`);
+		let authorId = await jwt.verify(authorization, `${process.env.SECRET}`);
 		const id = await uuid.v4();
 
 		await imgUpload(req.file).then((image) => {
@@ -135,13 +135,13 @@ router.post(
 					width,
 					height,
 					format,
-					userId
+					authorId
 				})
 				.returning('*')
 				.then(async (image) => {
 					const img = image[0];
 					await db('users')
-						.where({ id: userId })
+						.where({ id: authorId })
 						.increment('uploads', 1);
 					res.status(201).json(img);
 				})
