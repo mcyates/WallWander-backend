@@ -15,13 +15,13 @@ export const db = knex({
 
 setUpPaginator(db);
 
-export const initDb = () => {
-	db.schema.hasTable('users').then((exists) => {
+export const initDb = async () => {
+	await db.schema.hasTable('users').then((exists) => {
 		if (!exists) {
 			db.schema
 				.createTable('users', (table) => {
 					table
-						.uuid('id')
+						.string('id')
 						.primary()
 						.unique();
 					table
@@ -37,12 +37,12 @@ export const initDb = () => {
 		}
 	});
 
-	db.schema.hasTable('images').then((exists) => {
+	await db.schema.hasTable('images').then((exists) => {
 		if (!exists) {
 			db.schema
 				.createTable('images', (table) => {
 					table
-						.uuid('id')
+						.string('id')
 						.primary()
 						.unique()
 						.notNullable();
@@ -62,26 +62,27 @@ export const initDb = () => {
 						.defaultTo(0);
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 					table
-						.uuid('authorId')
-						.references('id')
-						.inTable('users')
+						.string('authorId')
+						.references('users.id')
 						.notNullable();
 				})
 				.then(() => console.log('images created'));
 		}
 	});
 
-	db.schema.hasTable('favorites').then((exists) => {
+	await db.schema.hasTable('favorites').then((exists) => {
 		if (!exists) {
 			db.schema
 				.createTable('favorites', (table) => {
 					table
-						.uuid('userId')
+						.string('userId')
 						.references('users.id')
+						.onDelete('CASCADE')
 						.notNullable();
 					table
-						.uuid('imageId')
+						.string('imageId')
 						.references('images.id')
+						.onDelete('CASCADE')
 						.notNullable();
 					table.primary(['imageId', 'userId']);
 				})
@@ -89,12 +90,12 @@ export const initDb = () => {
 		}
 	});
 
-	db.schema.hasTable('tags').then((exists) => {
+	await db.schema.hasTable('tags').then((exists) => {
 		if (!exists) {
 			db.schema
 				.createTable('tags', (table) => {
 					table
-						.uuid('id')
+						.string('id')
 						.primary()
 						.unique()
 						.notNullable();
@@ -111,16 +112,17 @@ export const initDb = () => {
 		}
 	});
 
-	db.schema.hasTable('images_tags').then((exists) => {
+	await db.schema.hasTable('images_tags').then((exists) => {
 		if (!exists) {
 			db.schema
 				.createTable('images_tags', (table) => {
 					table
-						.uuid('imageId')
+						.string('imageId')
 						.references('images.id')
+						.onDelete('CASCADE')
 						.notNullable();
 					table
-						.uuid('tagId')
+						.string('tagId')
 						.references('tags.id')
 						.notNullable();
 					table.primary(['imageId', 'tagId']);

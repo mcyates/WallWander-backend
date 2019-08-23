@@ -11,7 +11,6 @@ router.get(
 	Authenticate,
 	async (req: Request, res: Response) => {
 		const { imageId } = req.params;
-
 		const { userId } = req.query;
 		const data: any = await db('favorites')
 			.where({
@@ -32,15 +31,15 @@ router.post(
 	Authenticate,
 	async (req: Request, res: Response) => {
 		const { imageId } = req.params;
-
 		const { userId } = req.body;
-		await db('favorites').insert({
-			userId,
-			imageId
-		});
-		// .catch((e) => {
-		// 	res.status(409).json(e.detail);
-		// });
+		await db('favorites')
+			.insert({
+				userId,
+				imageId
+			})
+			.catch((e) => {
+				res.status(409).json(e.detail);
+			});
 
 		return res.status(201).json('success');
 	}
@@ -59,10 +58,10 @@ router.delete(
 				userId,
 				imageId
 			})
-			.del();
-		// .catch((e) => {
-		// 	res.status(409).json(e.detail);
-		// });
+			.del()
+			.catch((e) => {
+				res.status(409).json(e.detail);
+			});
 
 		return res.status(204).json();
 	}

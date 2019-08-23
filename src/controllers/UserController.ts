@@ -1,7 +1,7 @@
 import { Authenticate } from './../middleware/auth';
 import bcrypt from 'bcryptjs';
 import express, { Request, Response, Router, NextFunction } from 'express';
-import uuid from 'uuid';
+import short from 'short-uuid';
 
 import { db } from '../database/database';
 import { generateToken, findByToken } from '../utils/auth';
@@ -28,7 +28,7 @@ router.get(`/users/:id`, async (req: Request, res: Response) => {
 router.post(`/users/register`, async (req: Request, res: Response) => {
 	const { email, password } = req.body;
 
-	const id = await uuid.v4();
+	const id = await short().new();
 
 	const hash = await bcrypt.hash(password, 10);
 

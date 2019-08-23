@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import uuid from 'uuid';
+import short from 'short-uuid';
 
 import { Authenticate } from '../middleware/auth';
 import { db } from '../database/database';
@@ -49,7 +49,7 @@ router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 		.catch((e) => res.status(400).json(e.detail));
 
 	if (!tagExists) {
-		const id = await uuid.v4();
+		const id = await short().new();
 		await db('tags')
 			.insert({
 				id,
@@ -88,7 +88,6 @@ router.delete(
 	'/images/:imageId/tags/:tag',
 	async (req: Request, res: Response) => {
 		const { imageId, tag } = req.params;
-		console.log(req.params);
 
 		const tagExists = await db('tags')
 			.select('*')

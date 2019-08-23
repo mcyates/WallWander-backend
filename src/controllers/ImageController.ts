@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import uuid from 'uuid';
+import short from 'short-uuid';
 // @ts-ignore
 import setUpPaginator from 'knex-paginator';
 
@@ -122,7 +122,7 @@ router.post(
 	async (req: any, res: Response) => {
 		const { authorization } = req.headers;
 		let authorId = await jwt.verify(authorization, `${process.env.SECRET}`);
-		const id = await uuid.v4();
+		const id = await short().new();
 
 		await imgUpload(req.file).then((image) => {
 			const { url, secureUrl, width, height, format, title } = image;
@@ -160,6 +160,7 @@ router.delete(`/images/:id`, async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	const image: any = await db('images').where({ id });
+
 	await db('images')
 		.where({ id })
 		.del()
