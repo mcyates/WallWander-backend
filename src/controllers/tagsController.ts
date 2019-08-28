@@ -39,7 +39,8 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 // add a tag to an image
 router.post('/images/:imageId/tags', async (req: Request, res: Response) => {
 	const { imageId } = req.params;
-	const { nsfw, tag } = req.body;
+	let { nsfw, tag } = req.body;
+	tag = tag.toLowerCase();
 
 	const tagExists = await db('tags')
 		.select('*')
