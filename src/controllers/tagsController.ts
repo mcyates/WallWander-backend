@@ -28,6 +28,10 @@ router.get('/images/:imageId/tags', async (req: Request, res: Response) => {
 		await db('images')
 			.where({ id: imageId })
 			.update({ nsfw: true });
+	} else {
+		await db('images')
+			.where({ id: imageId })
+			.update({ nsfw: false });
 	}
 
 	return res.status(200).json(tags);

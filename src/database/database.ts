@@ -31,6 +31,10 @@ export const initDb = async () => {
 					table.integer('uploads');
 					table.string('name');
 					table.string('hash').notNullable();
+					table
+						.boolean('nsfw')
+						.notNullable()
+						.defaultTo(false);
 					table.timestamp('createdAt').defaultTo(db.fn.now());
 				})
 				.then(() => console.log('table created'));

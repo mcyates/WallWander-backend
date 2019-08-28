@@ -35,10 +35,9 @@ const imgUpload = async (file: File) => {
 };
 
 export const imgDelete = async (public_id: string) => {
-	console.log(public_id);
 	const res = await cloudinary.uploader
 		.destroy(public_id, (error: any, result: any) => {
-			console.log(error, result);
+			return;
 		})
 		.catch((e: any) => console.log(e));
 	return res;
