@@ -1,14 +1,16 @@
 FROM node:latest
 
-WORKDIR /usr/src/smart-brain-api
+WORKDIR /srv/app
 
-COPY package.json ./
+COPY package.json ./srv/app/package.json
 
-RUN npm install
-RUN npm run compile
+RUN npm install\
+  && npm install pm2 -g
 
 COPY . .
 
+RUN tsc
+
 EXPOSE 4000
 
-CMD ["npm", "start"]
+CMD ["npm", "prod"]
