@@ -9,9 +9,12 @@ import { generateToken, findByToken } from '../utils/auth';
 const router: Router = express.Router();
 
 // get all users
-router.get(`/users`, Authenticate, async (req: Request, res: Response) => {
+router.get(`/users`, async (req: Request, res: Response) => {
 	const users = await db.select('id').from('users');
-	return res.json(users);
+	if (users) {
+		return res.json(users);
+	}
+	res.status(404).json([]);
 });
 
 // get one user by id
