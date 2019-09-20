@@ -2,7 +2,7 @@ FROM node:latest
 
 WORKDIR /srv/app
 
-COPY package.json ./srv/app/package.json
+COPY ./package.json ./
 
 RUN npm install\
   && npm install pm2 -g
