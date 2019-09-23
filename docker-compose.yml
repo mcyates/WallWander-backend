@@ -1,20 +1,17 @@
-version: '3'
+version: "3"
 services:
-  # wallwander-api:
-  #   container_name: wallwander-api
-  #   build: ./
-  #   command: npm start
-  #   ports: 
-  #     - "4000:4000"
-  #   restart: always
-  #   volumes:
-  #     - wallwander-api:/usr/src/wallwander-api
+  wallwander-api:
+    container_name: wallwander-api
+    build: ./
+    command: npm start
+    ports:
+      - "4000:4000"
+    restart: always
   postgres:
     image: postgres:latest
-    # build: ./postgres
     container_name: "pg-docker"
     restart: always
-    # env_file: 
+    # env_file:
     #   - ./config/dev.env
     environment:
       - POSTGRES_USER=postgres
@@ -26,5 +23,4 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 volumes:
-  # wallwander-api:
   postgres:

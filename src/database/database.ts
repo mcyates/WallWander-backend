@@ -6,7 +6,8 @@ import setUpPaginator from 'knex-paginator';
 export const db = knex({
 	client: 'pg',
 	connection: {
-		host: `${process.env.POSTGRES_HOST}`,
+		// host: `${process.env.POSTGRES_HOST}`,
+		host: 'postgres',
 		user: `${process.env.POSTGRES_USER}`,
 		password: `${process.env.POSTGRES_PASSWORD}`,
 		database: `${process.env.POSTGRES_DB}`
