@@ -2,15 +2,14 @@ FROM node:latest
 
 WORKDIR /srv/app
 
-COPY package.json ./srv/app/package.json
+COPY ./package.json ./
 
-RUN npm install\
-  && npm install pm2 -g
+RUN npm install
+RUN npm install -g typescript
+RUN npm install -g pm2
 
 COPY . .
 
 RUN tsc
 
-EXPOSE 4000
-
-CMD ["npm", "prod"]
+CMD ["npm", "run", "prod"]

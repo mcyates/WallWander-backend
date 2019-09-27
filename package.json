@@ -4,7 +4,7 @@
 	"description": "A webapp for finding beautiful wallPapers",
 	"main": "index.js",
 	"scripts": {
-		"docker:up": "docker-compose up -d",
+		"docker:up": "docker-compose up --build -d",
 		"docker:down": "docker-compose down",
 		"dev": "env-cmd -f ./config/dev.env ts-node src/index.ts",
 		"prod": "env-cmd -f ./config/prod.env pm2 start build/index.js",
