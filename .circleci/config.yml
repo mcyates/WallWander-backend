@@ -29,4 +29,4 @@ jobs:
           command: "docker build -t myates/ww-b-dev -f Dockerfile.dev ."
       - run:
           name: run tests
-          command: docker run -e CI=true myates/ww-f-dev
+          command: docker run -e CI=true myates/ww-b-dev
