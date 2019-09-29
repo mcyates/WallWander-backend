@@ -9,5 +9,5 @@ before_install:
 
 script:
   - docker run -e CI=true myates/ww-b-dev
-  - docker build -t myates/wallwander:backend
+  - docker build -t myates/wallwander:backend .
   - docker push myates/wallwander:backend
