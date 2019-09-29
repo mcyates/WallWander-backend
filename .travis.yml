@@ -8,3 +8,6 @@ before_install:
 
 script:
   - docker run -e CI=true myates/ww-b-dev
+  - docker build -t myates/ww-backend .
+  - echo docker login -u "$DOCKER_USER" -P "DOCKER_PASS"
+  - docker push myates/ww-backend:latest
