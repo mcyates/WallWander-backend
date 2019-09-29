@@ -4,7 +4,10 @@ services:
   - docker
 
 before_install:
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - docker build -t myates/ww-b-dev -f Dockerfile.dev .
 
 script:
   - docker run -e CI=true myates/ww-b-dev
+  - docker build -t myates/wallwander:backend
+  - docker push myates/wallwander:backend
