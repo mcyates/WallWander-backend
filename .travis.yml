@@ -4,8 +4,10 @@ services:
   - docker
 
 before_install:
-  - echo docker login -u "$DOCKER_USER" -P "DOCKER_PASS"
   - docker build -t myates/ww-b-dev -f Dockerfile.dev .
+
+before_script:
+  - echo docker login -u "$DOCKER_USER" -P "DOCKER_PASS"
 
 script:
   - docker run -e CI=true myates/ww-b-dev
