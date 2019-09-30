@@ -1,4 +1,4 @@
-import { Authenticate } from './../middleware/auth';
+import { Authenticate } from '../middleware/auth';
 import bcrypt from 'bcryptjs';
 import express, { Request, Response, Router, NextFunction } from 'express';
 import short from 'short-uuid';

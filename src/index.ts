@@ -5,10 +5,10 @@ import helmet = require('helmet');
 import cors from 'cors';
 
 import favoritesRouter from './controllers/favoritesController';
-import imageRouter from './controllers/ImageController';
+import imageRouter from './controllers/imageController';
 import searchRouter from './controllers/searchController';
 import tagsRouter from './controllers/tagsController';
-import userRouter from './controllers/UserController';
+import userRouter from './controllers/userController';
 import { initDb } from './database/database';
 
 initDb();
