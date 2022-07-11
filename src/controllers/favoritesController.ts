@@ -17,7 +17,7 @@ router.get(
 				userId,
 				imageId
 			})
-			.catch((e) => {
+			.catch((e: any) => {
 				res.status(409).json(e.detail);
 			});
 		const status = !!data[0].imageId === true && !!data[0].userId === true;
@@ -37,7 +37,7 @@ router.post(
 				userId,
 				imageId
 			})
-			.catch((e) => {
+			.catch((e: any) => {
 				res.status(409).json(e.detail);
 			});
 
@@ -59,7 +59,7 @@ router.delete(
 				imageId
 			})
 			.del()
-			.catch((e) => {
+			.catch((e: any) => {
 				res.status(409).json(e.detail);
 			});
 

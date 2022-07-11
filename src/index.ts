@@ -1,7 +1,8 @@
 import { Authenticate } from './middleware/auth';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import helmet = require('helmet');
+import helmet from 'helmet';
+// import helmet = require('helmet');
 import cors from 'cors';
 
 import favoritesRouter from './controllers/favoritesController';

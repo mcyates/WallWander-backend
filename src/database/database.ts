@@ -1,7 +1,8 @@
 import knex from 'knex';
 import pg from 'pg';
 // @ts-ignore
-import setUpPaginator from 'knex-paginator';
+// import setUpPaginator from 'knex-paginator';
+import {attachPaginate} from 'knex-paginate'
 
 export const db = knex({
 	client: 'pg',
@@ -14,7 +15,7 @@ export const db = knex({
 	}
 });
 
-setUpPaginator(db);
+// setUpPaginator(db);
 
 export const initDb = async () => {
 	await db.schema.hasTable('users').then((exists) => {

@@ -19,10 +19,12 @@ const upload = multer({
 	fileFilter(req, file, cb) {
 		const isImage = /\.(?:jpg|jpeg|gif|png|webP)/g;
 		if (isImage.test(file.originalname.toLowerCase()) === false) {
-			return cb(new Error('file must be a image'), false);
-		}
+			return cb(new Error('file must be a image'));
+		} else {
 
-		cb(null, true);
+
+			cb(null, true);
+		}
 	}
 });
 
